@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FullStackComputer</title>
+    <link rel="stylesheet" href="./assets/css/grid.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/all.min.css">
 </head>
@@ -28,7 +29,7 @@
         <div class="logo"><a href="">FullStack<span>Computer</span></a></div>
         <div class="search-box">
             <input type="text" placeholder="Tìm sản phẩm...">
-            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button onclick=""><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
         <div class="cart-icon">
             <i class="fa-solid fa-cart-shopping"></i>
@@ -36,6 +37,37 @@
             <i class="fa-solid fa-user"></i>
         </div>
     </nav>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="slider-container">
+                    <div class="slider">
+                        <div class="slide"><img src="./assets/images/banner1.jpg" alt="Banner 1"></div>
+                        <div class="slide"><img src="./assets/images/banner2.jpg" alt="Banner 2"></div>
+                        <div class="slide"><img src="./assets/images/banner3.jpg" alt="Banner 3"></div>
+                        <div class="slide"><img src="./assets/images/banner4.jpg" alt="Banner 4"></div>
+                        <div class="slide"><img src="./assets/images/banner5.jpg" alt="Banner 5"></div>
+                        <div class="slide"><img src="./assets/images/banner6.jpg" alt="Banner 6"></div>
+                    </div>
+
+                    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+
+                    <div class="dots">
+                        <span class="dot" onclick="currentSlide(0)"></span>
+                        <span class="dot" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>
+                        <span class="dot" onclick="currentSlide(4)"></span>
+                        <span class="dot" onclick="currentSlide(5)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
 
@@ -74,7 +106,7 @@
         </div>
 
         <div class="container-pr">
-            <h2> Sản Phẩm Bán Chạy</h2>
+            <h2>  Top 3 Sản Phẩm Bán Chạy</h2>
             <div class="pr-trend">
 
                 <div id="trendingProducts" class="trending-products">
@@ -95,7 +127,7 @@
         <div id="productGrid" class="product-grid"></div>
 
         <div class="container-pr">
-            <h2> Sản Phẩm Bán Chạy</h2>
+            <h2>  Top 3 Sản Phẩm Bán Chạy</h2>
             <div class="pr-trend">
 
                 <div id="trendingProducts" class="trending-products">
@@ -130,6 +162,7 @@
     </div>
 
     <script src="./assets/js/controllers/productController.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
