@@ -1,0 +1,321 @@
+body {
+    margin: 0;
+}
+
+
+.nav {
+    align-items: center;
+    background: linear-gradient(180.3deg, #259AFF -18.56%, #114CDD 100.92%);
+    height: 50px;
+    line-height: 50px;
+    display: flex;
+}
+
+.nav ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    padding: 0 16px;
+    text-transform: capitalize;
+}
+
+.nav ul li a:hover {
+    color: #259AFF;
+}
+
+.flex {
+    display: flex;
+}
+
+.btn-category {
+    width: 50%;
+    height: 40px;
+    border: 1px solid #e0e0e0;
+    background-color: #fff;
+    border-radius: 4px;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.search-container input {
+    width: 100%;
+    height: 40px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    background-color: #f8f8f8;
+    outline: none;
+}
+
+.search-keywords {
+    gap: 12px;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #666;
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.header-nav {
+    margin-top: 30px;
+    width: 1920px;
+    box-shadow: #0000001a 0px 2px 4px 0px;
+}
+
+.user-info-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    height: 40px;
+    padding: 0 0 0 50px;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    background-image: url('https://img.freepik.com/premium-vector/user-profile-icon-vector-4_666870-1751.jpg?semt=ais_rp_progressive&w=740&q=80');
+    border-radius: 50%;
+    background-size: cover;
+    /* Ảnh sẽ được cắt để vừa với khung hình */
+    background-position: center;
+    /* Ảnh sẽ được căn giữa trong khung hình */
+}
+
+.user-text {
+    display: flex;
+    line-height: 1.2;
+    flex-direction: column;
+}
+
+.cart-header {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+}
+
+.avt-header {
+    border-radius: 50%;
+    height: 40px;
+}
+
+.small-text {
+    text-align: left;
+    margin: 0;
+    font-size: 14px;
+    color: #777;
+}
+
+.cart-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.cart-icon-container {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-icon-container i {
+    font-size: 30px;
+    color: #666;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ff4d4f;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #fff;
+    padding: 2px;
+}
+
+.cart-wrapper:hover i {
+    color: #007bff;
+}
+
+.filter-sidebar {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.filter-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+}
+
+.price-input-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.price-input-group input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.filter-options label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.grid-2-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.view-more {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 13px;
+    display: block;
+    margin-top: 5px;
+}
+
+.view-more:hover {
+    text-decoration: underline;
+}
+
+/* GỘP CÁC BIẾN THỂ CỦA RANGE SLIDER VÀ INPUT WRAPPER */
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding-right: 8px;
+    width: 100%;
+}
+
+.input-wrapper input {
+    border: none !important;
+    outline: none;
+    padding: 5px;
+    width: 100%;
+    text-align: right;
+}
+
+.currency-unit,
+.currency-label {
+    font-size: 13px;
+    color: #000;
+    margin-left: 2px;
+}
+
+.range-slider-container {
+    position: relative;
+    width: 100%;
+    height: 30px;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.range-input {
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    appearance: none;
+    -webkit-appearance: none;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.range-input::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: #3348bb;
+    border: 3px solid #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    pointer-events: auto;
+    position: relative;
+    z-index: 3;
+}
+
+.range-input::-moz-range-thumb {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: #3348bb;
+    border: 3px solid #fff;
+    cursor: pointer;
+    pointer-events: auto;
+    position: relative;
+    z-index: 3;
+}
+
+.slider-track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 6px;
+    background: #ddd;
+    border-radius: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
