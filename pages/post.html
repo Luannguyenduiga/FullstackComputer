@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Đăng sản phẩm</title>
+    <link rel="stylesheet" href="../assets/css/grid.css">
+    <link rel="stylesheet" href="../assets/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        /* Sử dụng hình ảnh công nghệ làm nền */
+        /* background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=2070');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        height: 100-vh; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .productAdd-container {
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .productAdd {
+        background: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        text-align: center;
+    }
+
+    h1 {
+        color: #333;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+        text-align: left;
+        position: relative;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .input-group input:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+    }
+
+    .input-group .dot {
+        color: red;
+    }
+
+    .input-group .unit {
+        position: absolute;
+        top: 52%;
+        right: 5px;
+        color: #8e8c8c;
+        pointer-events: none;
+        font-size: 13px;
+    }
+
+    .description {
+        width: fit-content;
+        /* Đặt chiều rộng tự động dựa trên nội dung */
+        max-width: 100%;
+    }
+
+    .img-box_preview {
+        display: block;
+    }
+
+    #image {
+        border: none;
+        padding: 0;
+    }
+
+    /* CSS cho khung chứa ảnh preview - LUÔN HIỆN VIỀN */
+    .img-box_preview {
+        width: 100%;
+        max-width: 250px;
+        /* Độ rộng tối đa bạn muốn */
+        height: 180px;
+        /* Chiều cao cố định của khung */
+        border: 1px dashed #007bff;
+        /* Viền đứt nét màu xanh */
+        border-radius: 8px;
+        margin: 10px auto 20px;
+        /* Căn giữa và tạo khoảng cách */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        /* Cắt ảnh nếu quá lớn */
+        background-color: #f9f9f9;
+        /* Màu nền nhẹ cho khung */
+    }
+
+    #img-preview {
+        max-width: 50%;
+        max-height: 50%;
+        object-fit: contain;
+    }
+
+    .btn-add {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+</style>
+
+<body>
+    <div class="productAdd-container">
+
+        <div class="productAdd">
+            <h1>FORM ĐĂNG SẢN PHẨM</h1>
+            <form action="#" method="post">
+                <div class="input-group">
+                    <label for="fullname">Tên sản phẩm <span class="dot">*</span></label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Tên Sản Phẩm" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="price">Giá sản phẩm <span class="dot">*</span></label>
+                    <input type="text" id="price" name="price" placeholder="Giá Sản Phẩm" required>
+                    <span class="unit">VND</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="discount">Giảm giá</label>
+                    <input type="text" id="discount" name="discount" placeholder="Giảm giá">
+                    <span class="unit">VND</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="category_id">Danh mục <span class="dot">*</span></label>
+                    <select id="category_id" name="category_id" required>
+                        <option value="">Chọn danh mục</option>
+                        <option value="1">Điện thoại</option>
+                        <option value="2">Laptop</option>
+                        <option value="3">Linh kiện</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="brands_id">Hãng sản xuất <span class="dot">*</span></label>
+                    <select id="brands_id" name="brands_id" required>
+                        <option value="">Chọn hãng sản xuất</option>
+                        <option value="1">Apple</option>
+                        <option value="2">Samsung</option>
+                        <option value="3">Xiaomi</option>
+                        <option value="4">Asus</option>
+                        <option value="5">Lenovo</option>
+                        <option value="6">Acer</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="description">Mô tả sản phẩm <span class="dot">*</span></label>
+                    <textarea class="description" name="description" placeholder="Mô tả Sản Phẩm" required></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="image">Hình ảnh sản phẩm <span class="dot">*</span></label>
+                    <input type="file" id="image" name="image" accept="image/*" multiple required>
+                </div>
+            </form>
+            <div class="img-box_preview">
+                <p id="preview-text"><i class="fa-solid fa-file-image"></i></p>
+                <img src="#" alt="Preview" id="img-preview" style="display: none;">
+            </div>
+            <button type="submit" class="btn-add">Đăng sản phẩm</button>
+        </div>
+    </div>
+</body>
+<script>
+    const imageInput = document.getElementById('image');
+    const imagePreview = document.getElementById('img-preview');
+
+    imageInput.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block'; // Hiện ảnh khi đã chọn
+            }
+
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.style.display = 'none'; // Ẩn nếu không chọn gì
+        }
+    });
+</script>
+
+</html>

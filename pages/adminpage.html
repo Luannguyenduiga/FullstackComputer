@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Product Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    :root {
+        --sidebar-bg: #2c3e50;
+        --main-bg: #f4f7f6;
+        --primary-color: #3498db;
+        --text-light: #ecf0f1;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+    }
+
+    body {
+        background-color: var(--main-bg);
+    }
+
+    .admin-container {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    /* Sidebar Styling */
+    .sidebar {
+        width: 260px;
+        background: var(--sidebar-bg);
+        color: var(--text-light);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        gap: 10px;
+        border-bottom: #fff 1px solid;
+        padding-bottom: 20px;
+    }
+
+    .avatar {
+        width: 45px;
+        height: 45px;
+        background-image: url('https://img.freepik.com/premium-vector/user-profile-icon-vector-4_666870-1751.jpg?semt=ais_rp_progressive&w=740&q=80');
+        border-radius: 50%;
+        background-size: cover; /* Ảnh sẽ được cắt để vừa với khung hình */
+        background-position: center; /* Ảnh sẽ được căn giữa trong khung hình */
+    }
+
+    .status {
+        font-size: 10px;
+        color: #2ecc71;
+        display: flex;
+    }
+
+    .menu-label {
+        font-size: 12px;
+        color: #7f8c8d;
+        margin: 20px 0 10px;
+    }
+
+    .menu ul {
+        list-style: none;
+    }
+
+    .menu ul li a {
+        color: var(--text-light);
+        text-decoration: none;
+        display: block;
+        padding: 10px 0;
+        font-size: 14px;
+    }
+
+    .menu ul li a.active {
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+
+    .logout {
+        margin-top: auto;
+        color: #e74c3c;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 20px 0;
+    }
+
+    /* Main Content Styling */
+    .main-content {
+        flex: 1;
+        padding: 30px;
+    }
+
+    .content-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .search-input {
+        padding: 8px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 250px;
+    }
+
+    .btn-create {
+        padding: 8px 20px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    /* Table Styling */
+    .table-container {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+
+    th {
+        background: #fcfcfc;
+        font-size: 13px;
+        color: #7f8c8d;
+    }
+
+    .actions button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        margin-right: 10px;
+        color: var(--primary-color);
+    }
+
+    .actions .delete {
+        color: #e74c3c;
+    }
+
+    .pagination {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .pagination input {
+        width: 40px;
+        padding: 5px;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div class="admin-container">
+        <div class="sidebar">
+            <div class="user-profile">
+                <div class="avatar"></div>
+                <div class="user-info">
+                    <span class="role">ADMIN</span>
+                    <span class="status">● ONLINE</span>
+                </div>
+            </div>
+
+            <nav class="menu">
+                <p class="menu-label">ADMINISTRATOR</p>
+                <ul>
+                    <li><a href="#" class="active">DASHBOARD</a></li>
+                    <li><a href="#">IMAGE</a></li>
+                    <li><a href="#">TAGS</a></li>
+                    <li><a href="#">PRODUCT</a></li>
+                </ul>
+
+                <p class="menu-label">USER</p>
+                <ul>
+                    <li><a href="#">MENU <span>+</span></a></li>
+                    <li><a href="#">NEWS <span>+</span></a></li>
+                    <li><a href="#">USERS & ROLES <span>+</span></a></li>
+                </ul>
+            </nav>
+
+            <button class="logout" onclick="window.location.href='login.html'">LOG OUT</button>
+        </div>
+
+        <main class="main-content">
+            <header class="content-header">
+                <div>
+                    <h1>PRODUCT</h1>
+                    <p>All products in database</p>
+                </div>
+                <div class="header-actions">
+                    <input type="text" placeholder="Search..." class="search-input">
+                    <button class="btn-create" onclick="window.location.href='post.html'">+ Create</button>
+                </div>
+            </header>
+
+            <section class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>TÊN</th>
+                            <th>GIÁ</th>
+                            <th>G.GIÁ</th>
+                            <th>DANH MỤC</th>
+                            <th>HÃNG</th>
+                            <th>STATUS</th>
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>01</td>
+                            <td>Sản phẩm mẫu A</td>
+                            <td>1.000.000đ</td>
+                            <td>10%</td>
+                            <td>Điện tử</td>
+                            <td>Sony</td>
+                            <td><span class="status-active">Active</span></td>
+                            <td class="actions">
+                                <button class="edit"onclick="window.location.href='post.html'">Edit </button>
+                                <button class="delete">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <footer class="pagination">
+                <input type="number" value="1"> <span>/ 10 Pages</span>
+            </footer>
+        </main>
+    </div>
+</body>
+
+</html>
