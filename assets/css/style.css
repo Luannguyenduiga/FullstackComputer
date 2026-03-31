@@ -446,3 +446,17 @@ body {
     transform: scale(1.1); /* Phóng to nhẹ khi hover */
     transition: transform 1s ease; /* Hiệu ứng mượt */
 }
+
+
+.view-more {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid #0071e3;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    margin: 20px auto; /* Căn giữa nút và tạo khoảng cách trên dưới */
+}
+
