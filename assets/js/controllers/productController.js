@@ -1,96 +1,127 @@
-async function renderPic() {
-  const grid = document.getElementById('productGrid');
-  const grid1 = document.getElementById('productGrid1');
-  const grid2 = document.getElementById('productGrid2');
-  const grid3 = document.getElementById('productGrid3');
-  const grid4 = document.getElementById('productGrid4');
-  const grid5 = document.getElementById('productGrid5');
+import path from 'path';
+import fs from 'fs';
+import { pipeline } from 'stream';
+import { promisify } from 'util';
+import { fileURLToPath } from 'url';
+import { sql } from '../configDB.js';
 
-  try {
-    const response = await fetch('http://localhost:3000/products');
-    const products = await response.json();
+const pump = promisify(pipeline);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-    const dienthoai = products.filter(p => p.category_id == 1);
-    const laptop = products.filter(p => p.category_id == 2);
-    const linhkien = products.filter(p => p.category_id == 3);
+const IMAGE_ROOT = path.join(__dirname, '../../images');
 
-    // Danh sách linh kiện
-    grid.innerHTML = products.map(product => `
-      <div class="product-card">
-        <img src="http://localhost:3000${product.image_url}">
-        <h4>${product.name}</h4>
-        <p class="price">${Number(product.price).toLocaleString()}₫</p>
-        <button class="btn-buy">
-                Thêm vào giỏ hàng
-            </button>
-      </div>
-    `).join('');
+// Export function ra ngoài để đăng ký vào Fastify
+export default async function productController(fastify, options) {
 
-    //SẢN PHẨM BÁN CHẠY (4 sản phẩm)
-    // slice(0,4) để lấy 4 sản phẩm đầu tiên từ mảng products và hiển thị chúng trong grid1. Mỗi sản phẩm được hiển thị dưới dạng một thẻ div với lớp product-card, chứa hình ảnh, tên và giá của sản phẩm.
-    grid1.innerHTML = products.slice(0, 3).map(product => `
-      <div class="product-card">
-        <img src="http://localhost:3000${product.image_url}">
-        <h4>${product.name}</h4>
-        <p class="price">${Number(product.price).toLocaleString()}₫</p>
-        <button class="btn-buy">
-                Thêm vào giỏ hàng
-            </button>
-      </div>
-    `).join('');
+    // Đảm bảo thư mục tồn tại
+    if (!fs.existsSync(IMAGE_ROOT)) fs.mkdirSync(IMAGE_ROOT, { recursive: true });
 
-    grid2.innerHTML = products.slice(0, 3).map(product => `
-      <div class="product-card">
-        <img src="http://localhost:3000${product.image_url}">
-        <h4>${product.name}</h4>
-        <p class="price">${Number(product.price).toLocaleString()}₫</p>
-        <button class="btn-buy">
-                Thêm vào giỏ hàng
-            </button>
-      </div>
-    `).join('');
+    // GET products
+    fastify.get('/products', async (req, reply) => {
+        try {
+            const result = await sql.query`
+                SELECT 
+                    p.product_id, p.name, p.price,
+                    CASE 
+                        WHEN h.image_url IS NOT NULL THEN CONCAT('/images/', h.image_url)
+                        ELSE '/images/default-placeholder.png' 
+                    END AS image_url
+                FROM SANPHAM p
+                LEFT JOIN HINHANH_SP h ON p.product_id = h.product_id AND h.is_main = 1
+                WHERE p.status='active'
+                ORDER BY p.product_id DESC`;
+            reply.send(result.recordset);
+        } catch (err) {
+            req.log.error(err);
+            reply.code(500).send({ error: 'Lỗi lấy dữ liệu hiển thị' });
+        }
+    });
 
+    // GET product with Category 
+    fastify.get('/products/category/:id', async (req, reply) => {
+        try {
+            const id = parseInt(req.params.id); // Lấy ID từ URL
+            const result = await sql.query`
+            SELECT 
+                p.product_id,
+                p.name,
+                p.price,
+                CASE 
+                    WHEN h.image_url IS NOT NULL THEN CONCAT('/images/', h.image_url)
+                    ELSE '/images/default-placeholder.png' 
+                END AS image_url
+            FROM SANPHAM p
+            LEFT JOIN HINHANH_SP h ON p.product_id = h.product_id AND h.is_main = 1
+            WHERE p.category_id = ${id} AND p.status = 'active'
+            ORDER BY p.product_id DESC
+        `;
+            reply.send(result.recordset)
+        } catch (err) {
+            req.log.error(err);
+            reply.code(500).send({ error: 'Lỗi lấy dữ liệu hiển thị' });
+        }
+    })
 
-    //Grid khác
-    grid3.innerHTML = products.slice(0, 6).map(product => `
-      <div class="product-card">
-        <img src="http://localhost:3000${product.image_url}">
-        <h4>${product.name}</h4>
-        <p class="price">${Number(product.price).toLocaleString()}₫</p>
-        <button class="btn-buy">
-                Thêm vào giỏ hàng
-            </button>
-      </div>
-    `).join('');
+    // POST products
+    fastify.post('/products', async (req, reply) => {
+        try {
+            if (!req.isMultipart()) {
+                return reply.code(400).send({ error: "Dữ liệu không đúng định dạng Form" });
+            }
 
-    grid4.innerHTML = products.slice(0, 6).map(product => `
-      <div class="product-card">
-        <img src="http://localhost:3000${product.image_url}">
-        <h4>${product.name}</h4>
-        <p class="price">${Number(product.price).toLocaleString()}₫</p>
-        <button class="btn-buy">
-                Thêm vào giỏ hàng
-            </button>
-      </div>
-    `).join('');
+            const data = await req.file();
+            if (!data) return reply.code(400).send({ error: "Không tìm thấy file ảnh" });
 
-    grid5.innerHTML = products.slice(0, 6).map(product => `
-      <div class="product-card">
-        <img src="http://localhost:3000${product.image_url}">
-        <h4>${product.name}</h4>
-        <p class="price">${Number(product.price).toLocaleString()}₫</p>
-        <button class="btn-buy">
-                Thêm vào giỏ hàng
-            </button>
-      </div>
-    `).join('');
+            const name = data.fields.name?.value;
+            const price = parseInt(data.fields.price?.value);
+            const category_id = parseInt(data.fields.category_id?.value);
+            const brand_id = parseInt(data.fields.brand_id?.value);
+            const description = data.fields.description?.value || '';
 
-  } catch (error) {
-    console.error('Error fetching products:', error);
-  }
+            if (!name || isNaN(price)) {
+                return reply.code(400).send({ error: "Tên hoặc Giá không hợp lệ" });
+            }
 
+            const result = await sql.query`
+                INSERT INTO SANPHAM(name, price, category_id, brand_id, description, status)
+                OUTPUT INSERTED.product_id
+            VALUES(${name}, ${price}, ${category_id}, ${brand_id}, ${description}, 'active')`;
 
+            const productId = result.recordset[0].product_id;
+            const folderName = 'linhkien';
+            const fileName = `${Date.now()} -${data.filename.replace(/\s+/g, '-')} `;
+            const dbPath = `${folderName}/${fileName}`;
+            const targetDir = path.join(IMAGE_ROOT, folderName);
+
+            if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true });
+            await pump(data.file, fs.createWriteStream(path.join(targetDir, fileName)));
+
+            await sql.query`
+                INSERT INTO HINHANH_SP (product_id, image_url, is_main)
+                VALUES (${productId}, ${dbPath}, 1)`;
+
+            return reply.send({ success: true, productId });
+        } catch (err) {
+            console.error("Lỗi:", err.message);
+            return reply.code(500).send({ error: 'Lỗi server', message: err.message });
+        }
+    });
+
+    // GET admin products
+    fastify.get('/admin/products', async (req, reply) => {
+        try {
+            const result = await sql.query`
+                SELECT 
+                    p.product_id, p.name AS product_name, p.price, p.status,
+                    p.description, p.discount_price, d.name AS category_name, h.name AS brand_name 
+                FROM SANPHAM p
+                LEFT JOIN DANHMUC d ON p.category_id = d.category_id
+                LEFT JOIN HANG h ON p.brand_id = h.brand_id
+                ORDER BY p.product_id DESC`;
+            return result.recordset;
+        } catch (err) {
+            return reply.code(500).send({ error: "Lỗi SQL", detail: err.message });
+        }
+    });
 }
-
-// Gọi hàm để hiển thị sản phẩm khi trang được tải
-renderPic();
