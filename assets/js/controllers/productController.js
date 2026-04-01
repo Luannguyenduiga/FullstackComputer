@@ -39,16 +39,20 @@ export default async function productController(fastify, options) {
     });
 
     // GET product with Category 
+    // GET product with Category 
     fastify.get('/products/category/:id', async (req, reply) => {
         try {
             const id = parseInt(req.params.id); // Lấy ID từ URL
+
+            // Sử dụng LTRIM và RTRIM (hoặc TRIM với SQL Server đời mới) để dọn dẹp chuỗi
             const result = await sql.query`
             SELECT 
                 p.product_id,
                 p.name,
                 p.price,
                 CASE 
-                    WHEN h.image_url IS NOT NULL THEN CONCAT('/images/', h.image_url)
+                    WHEN h.image_url IS NOT NULL 
+                    THEN CONCAT('/images/', LTRIM(RTRIM(h.image_url)))
                     ELSE '/images/default-placeholder.png' 
                 END AS image_url
             FROM SANPHAM p
@@ -56,12 +60,14 @@ export default async function productController(fastify, options) {
             WHERE p.category_id = ${id} AND p.status = 'active'
             ORDER BY p.product_id DESC
         `;
-            reply.send(result.recordset)
+
+            // Trả về dữ liệu đã được làm sạch
+            reply.send(result.recordset);
         } catch (err) {
             req.log.error(err);
             reply.code(500).send({ error: 'Lỗi lấy dữ liệu hiển thị' });
         }
-    })
+    });
 
     // POST products
     fastify.post('/products', async (req, reply) => {
@@ -90,7 +96,7 @@ export default async function productController(fastify, options) {
 
             const productId = result.recordset[0].product_id;
             const folderName = 'linhkien';
-            const fileName = `${Date.now()} -${data.filename.replace(/\s+/g, '-')} `;
+            const fileName = `${Date.now()}-${data.filename.replace(/\s+/g, '-')}`;
             const dbPath = `${folderName}/${fileName}`;
             const targetDir = path.join(IMAGE_ROOT, folderName);
 
