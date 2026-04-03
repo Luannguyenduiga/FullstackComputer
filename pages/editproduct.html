@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý sản phẩm</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .img-preview {
+            width: 100%;
+            height: 150px;
+            border: 1px dashed #007bff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fafafa;
+            overflow: hidden;
+        }
+
+        .img-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        #name,
+        #category_id,
+        #brand_id {
+            pointer-events: none;
+            /* Chỉ cho phép xem, không chỉnh sửa tên sản phẩm */
+            opacity: 0.5;
+            cursor: not-allowed;
+            /* Chỉ cho phép xem, không chỉnh sửa tên sản phẩm */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 id="formTitle">Đăng sản phẩm</h1>
+        <form id="productForm">
+            <div class="input-group">
+                <label>Tên sản phẩm*</label>
+                <input type="text" name="name" id="name" required>
+            </div>
+            <div class="input-group">
+                <label>Giá*</label>
+                <input type="number" name="price" id="price" required>
+            </div>
+            <div class="input-group">
+                <label>Danh mục*</label>
+                <select name="category_id" id="category_id">
+                    <option value="">Chọn danh mục</option>
+                    <option value="1">Điện thoại</option>
+                    <option value="2">Laptop</option>
+                    <option value="3">Linh kiện</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Hãng*</label>
+                <select name="brand_id" id="brand_id">
+                    <option value="">Chọn hãng</option>
+                    <option value="1">Intel</option>
+                    <option value="2">Crossair</option>
+                    <option value="3">Gigabyte</option>
+                    <option value="5">Iphone</option>
+                    <option value="7">Asus</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Mô tả</label>
+                <textarea name="description" id="description" rows="3"></textarea>
+            </div>
+            <div class="input-group">
+                <label id="labelImage">Ảnh sản phẩm*</label>
+                <input type="file" name="image" id="imageInput" accept="image/*">
+            </div>
+            <div class="img-preview" id="imgPreview">Preview</div>
+            <button type="submit" id="submitBtn">Đăng sản phẩm</button>
+        </form>
+    </div>
+
+    <script>
+        const productForm = document.getElementById('productForm');
+        const imgPreview = document.getElementById('imgPreview');
+        const submitBtn = document.getElementById('submitBtn');
+        const formTitle = document.getElementById('formTitle');
+
+
+        const urlParams = new URLSearchParams(window.location.search); // Lấy tham số id từ URL
+        const productId = urlParams.get('id');
+
+        // Xử lý Preview ảnh khi chọn file mới 
+        productForm.image.addEventListener('change', e => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    imgPreview.innerHTML = `<img src="${reader.result}" alt="Preview">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Load dữ liệu cũ 
+        async function loadProductData() {
+            if (!productId) return;
+
+            try {
+
+                formTitle.innerText = "Sửa sản phẩm";
+                submitBtn.innerText = "Cập nhật sản phẩm";
+                document.getElementById('imageInput').required = false; // Sửa thì không bắt buộc chọn lại ảnh
+                document.getElementById('labelImage').innerText = "Ảnh sản phẩm (để trống nếu giữ nguyên)";
+
+                const response = await fetch(`http://localhost:3000/edit/product/${productId}`); // Gọi API để lấy dữ liệu sản phẩm theo id
+                if (!response.ok) throw new Error("Không tìm thấy sản phẩm");
+
+                const product = await response.json();
+
+                // Đổ dữ liệu vào form
+                document.getElementById('name').value = product.name;
+                document.getElementById('price').value = product.price;
+                document.getElementById('description').value = product.description || '';
+                document.getElementById('category_id').value = product.category_id || '';
+                document.getElementById('brand_id').value = product.brand_id || '';
+
+                if (product.image_url) {
+                    imgPreview.innerHTML = `<img src="${product.image_url}" alt="Ảnh cũ">`;
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Lỗi khi load dữ liệu sản phẩm!");
+            }
+        }
+
+        loadProductData();
+
+        // Xử lý submit form
+        productForm.addEventListener('submit', async e => {
+            e.preventDefault();
+
+            const fileInput = document.getElementById('imageInput');
+            let body;
+            let headers = {};
+
+            // Nếu có file mới được chọn, sử dụng FormData để gửi multipart/form-data
+            if (fileInput.files.length > 0) {
+                body = new FormData(productForm);
+                // Với FormData, trình duyệt sẽ tự động thêm Content-Type: multipart/form-data
+            } else {
+                // Lấy dữ liệu thủ công từ các input để đóng gói thành JSON
+                const plainData = {
+                    name: document.getElementById('name').value,
+                    price: document.getElementById('price').value,
+                    description: document.getElementById('description').value,
+                    category_id: document.getElementById('category_id').value,
+                    brand_id: document.getElementById('brand_id').value
+                };
+                body = JSON.stringify(plainData);
+                headers['Content-Type'] = 'application/json';
+            }
+
+            try {
+                
+                const res = await fetch(`http://localhost:3000/update/product/${productId}`, {
+                    method: 'PUT',
+                    headers: headers,
+                    body: body
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert('Cập nhật sản phẩm thành công!');
+                    window.location.href ="http://127.0.0.1:5500/pages/adminpage.html";  // Quay về trang admin sau khi cập nhật
+                } else {
+                    alert('Lỗi: ' + (data.error || 'Không thể cập nhật'));
+                }
+            } catch (err) {
+                console.error('Lỗi kết nối:', err);
+                alert('Lỗi kết nối server!');
+            }
+        });
+    </script>
+</body>
+
+</html>
