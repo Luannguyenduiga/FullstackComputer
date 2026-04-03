@@ -90,26 +90,35 @@
 .payment-icons {
     display: flex;
     gap: 15px;
+    margin-top: 10px;
 }
 
 .pay-item {
     border: 1px solid #ddd;
     border-radius: 4px;
-    padding: 8px;
-    text-align: center;
+    padding: 12px 8px; 
     width: 75px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .pay-item i {
-    display: block;
     font-size: 20px;
-    margin-bottom: 5px;
+    margin-bottom: 6px; 
     color: #555;
 }
 
 .pay-item span {
     font-size: 10px;
     display: block;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.pay-item span:hover {
+   text-decoration: underline;
 }
 
 .footer-bottom {
