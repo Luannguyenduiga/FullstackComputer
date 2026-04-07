@@ -29,7 +29,7 @@ async function fetchAndRender(categoryId, elementId, limit = null) {
                 <div class="product-info">
                     <h4>${product.name}</h4>
                     <p class="price">${Number(product.price).toLocaleString()}₫</p>
-                    <button class="btn-buy">
+                    <button class="btn-buy" data-id="${product.id}">
                         Thêm vào giỏ hàng
                     </button>
                 </div>
@@ -61,6 +61,37 @@ async function initApp() {
     // 4. Render Danh sách Điện Thoại (Category 1)
     await fetchAndRender(1, 'dienthoaiGrid');
 }
+
+// 1. Tạo biến lưu trữ giỏ hàng (State)
+let cart = []; 
+
+// 2. Chọn phần tử hiển thị số lượng (Cái badge màu đỏ của bạn)
+const cartBadge = document.querySelector("#shopping-cart");
+
+// 3. Hàm cập nhật giao diện số lượng
+function updateCartBadge() {
+    // Tính tổng số lượng item trong giỏ
+    cartBadge.innerText = cart.length; 
+    
+    // Thêm hiệu ứng rung rinh cho vui mắt khi số nhảy
+    cartBadge.classList.add("bump");
+    setTimeout(() => cartBadge.classList.remove("bump"), 300);
+}
+
+// 4. Lắng nghe sự kiện (Dùng Event Delegation để tối ưu hiệu năng)
+document.addEventListener("click", function(e) {
+    if (e.target && e.target.classList.contains("btn-buy")) {
+        const productId = e.target.getAttribute("data-id");
+        
+        // Thêm sản phẩm vào mảng (tạm thời thêm ID)
+        cart.push(productId);
+        
+        // Gọi hàm cập nhật số
+        updateCartBadge();
+        
+        console.log("Giỏ hàng hiện tại:", cart);
+    }
+});
 
 // Chạy hàm khởi tạo
 document.addEventListener('DOMContentLoaded', initApp);
