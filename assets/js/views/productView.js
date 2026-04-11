@@ -51,15 +51,19 @@ async function initApp() {
     await fetchAndRender(2, 'laptopGridPr', 3); // 3 sản phẩm bán chạy nhất của Laptop
     await fetchAndRender(1, 'dienthoaiGridPr', 3); // 3 sản phẩm bán chạy nhất của Điện thoại
     // 2. Render Danh sách Linh Kiện (Category 3)
-    await fetchAndRender(3, 'linhkienGrid');
-
+    await fetchAndRender(3, 'linhkienGrid',4);
+    await fetchAndRender(3, 'linhkienGrid1'); // Hiện ảnh bên trang Product
     // 3. Render Các loại Laptop (Category 2)
-    await fetchAndRender(2, 'laptopAigrid');
-    await fetchAndRender(2, 'laptopGamingGrid');
-    await fetchAndRender(2, 'laptopVPgrid');
-
+    await fetchAndRender(2, 'laptopAigrid',4);
+    await fetchAndRender(2, 'laptopGamingGrid',4);
+    await fetchAndRender(2, 'laptopVPgrid',4);
+    // Hiện ảnh bên trang Product
+    await fetchAndRender(2, 'laptopAigrid1');
+    await fetchAndRender(2, 'laptopGamingGrid1');
+    await fetchAndRender(2, 'laptopVPgrid1');
     // 4. Render Danh sách Điện Thoại (Category 1)
     await fetchAndRender(1, 'dienthoaiGrid');
+    await fetchAndRender(1, 'dienthoaiGrid1'); // Hiện ảnh bên trang Product
 }
 
 // 1. Tạo biến lưu trữ giỏ hàng (State)
@@ -73,7 +77,7 @@ function updateCartBadge() {
     // Tính tổng số lượng item trong giỏ
     cartBadge.innerText = cart.length; 
     
-    // Thêm hiệu ứng rung rinh cho vui mắt khi số nhảy
+   // hiệu ứng
     cartBadge.classList.add("bump");
     setTimeout(() => cartBadge.classList.remove("bump"), 300);
 }
