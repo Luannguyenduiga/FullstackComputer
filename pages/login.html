@@ -207,7 +207,7 @@ body::before {
 
         <div class="FORM_DANGNHAP">
             <button class="close-btn">&times;</button>
-            <form action="#" method="post" class="login">
+            <form method="post" class="login">
                 <h2 style="font-size: 30px;">Đăng nhập</h2>
                 <p class="register-text">Bạn chưa có tài khoản? <a href="./register.html"> Register</a></p>
 
@@ -226,16 +226,16 @@ body::before {
                 <section class="dangnhap">
                     <div class="inputBox">
                         <i class='bx bx-user'> Username </i>
-                        <input type="text" placeholder="Your Username" required>
+                        <input type="text" placeholder="Your Username" required id="username">
                     </div>
                     <div class="inputBox">
                         <i class='bx bx-lock'> Password </i>
-                        <input type="password" placeholder="Your Password" required>
+                        <input type="password" placeholder="Your Password" required id="password">
                     </div>
                 </section>
 
                 <div class="Loginbtn">
-                    <button><a href="../index.html">Đăng nhập</a></button>
+                    <button>Đăng nhập</button>
                 </div>
 
                 <div class="remember-login">
@@ -246,6 +246,7 @@ body::before {
 
         </div>
     </div>
+    <script src="../assets/js/controllers/userController.js"></script>
 </body>
 
 </html>
