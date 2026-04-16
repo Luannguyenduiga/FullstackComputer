@@ -85,7 +85,7 @@ minInput.addEventListener('input', handleInput);
 maxInput.addEventListener('input', handleInput);
 
 
-// Hiện số luowngk thông báo trong box
+// Hiện số lượng thông báo trong box
 function updateNoticeCount() {
     const noticeBadge = document.querySelector('#notice-count');
     if (!noticeBadge) return;
@@ -97,7 +97,7 @@ function updateNoticeCount() {
         // Nếu có (trang index), đếm rồi lưu vào kho
         const count = notices.length;
         noticeBadge.innerText = count;
-        localStorage.setItem('savedNoticeCount', count); 
+        localStorage.setItem('savedNoticeCount', count);
         noticeBadge.style.display = 'block';
     } else {
         // Nếu không có (trang product), vào kho lấy số đã lưu ra dùng
@@ -116,5 +116,84 @@ document.addEventListener('DOMContentLoaded', () => {
     updateNoticeCount();
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    // Chạy hàm updateColor nếu có
+    if (typeof updateColor === "function") updateColor();
+
+    const cartDropdown = document.getElementById('cartDropdown');
+    const cartContent = document.querySelector('.cart-dropdown-content');
+
+    if (cartDropdown && cartContent) {
+        cartDropdown.addEventListener('click', function (e) {
+            // Kiểm tra nếu click trúng vào nội dung dropdown thì không làm gì
+            if (e.target.closest('.cart-dropdown-content')) return;
+
+            // Ngăn chặn chuyển trang shopping.html khi click vào icon
+            e.preventDefault();
+            e.stopPropagation();
+
+            cartContent.classList.toggle('show');
+        });
+    }
+
+    // Đóng giỏ hàng khi click ra ngoài
+    window.addEventListener('click', function () {
+        if (cartContent && cartContent.classList.contains('show')) {
+            cartContent.classList.remove('show');
+        }
+    });
+});
+
+// Đảm bảo hàm này KHÔNG nằm trong một hàm khác (như initApp)
+window.addToCart = async function (productId, name, price) {
+    const userId = 3;
+    console.log("Đang thêm sản phẩm:", productId); // Để debug kiểm tra nút có ăn không
+
+    try {
+        const response = await fetch('http://localhost:3000/api/cart/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                product_id: productId,
+                user_id: userId,
+                quantity: 1
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            await loadCartToSidebar(); // Cập nhật lại giao diện dropdown
+            alert(`Đã thêm ${name} vào giỏ hàng!`);
+        }
+    } catch (error) {
+        console.error("Lỗi khi thêm vào giỏ:", error);
+    }
+};
+
+// Hàm xóa sản phẩm trong giỏ hàng
+window.removeFromCart = async function (event, productId) {
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    const userId = 2;
+    
+    try {
+        // Đường dẫn gốc là /api/cart/remove, sau đó mới nối đuôi ? vào
+        const url = `http://localhost:3000/api/cart/remove?product_id=${productId}&user_id=${userId}`;
+
+        const response = await fetch(url, { method: 'DELETE' });
+        const result = await response.json();
+
+        if (result.success) {
+            console.log("Xóa thành công trên DB");
+            await loadCartToSidebar(); // Vẽ lại giao diện
+        }
+    } catch (error) {
+        console.error("Lỗi:", error);
+    }
+};
 // Khởi tạo lần đầu
 updateColor();
