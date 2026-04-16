@@ -71,7 +71,7 @@
                     <div class="avatar"></div>
                     <div class="user-text">
                         <p class="small-text">Xin chào </p>
-                        <a class="small-text" href="./pages/adminpage.html" target="_blank">Luân Nguyễn</a>
+                        <a class="small-text" href="./pages/adminpage.html" target="_blank" id="admin-page">Luân Nguyễn</a>
                         <!--Target="_blank" là mở tab mới-->
                     </div>
                     <div class="notice-wrapper">
@@ -116,17 +116,29 @@
                             </div>
                         </div>
                     </div>
-                    <a href="./pages/shopping.html" class="cart-wrapper">
-                        <div class="cart-icon-container">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            <span class="cart-badge" id="shopping-cart">0</span>
-                        </div>
-                    </a>
+                    <div class="shopping-container">
+                        <a href="./pages/detailproduct.html" class="shopping-wrapper" id="cartDropdown">
+                            <div class="cart-icon-container">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span class="cart-badge"></span>
+                            </div>
+
+                            <div class="cart-dropdown-content">
+                                <div class="cart-empty">
+                                    <img src="./assets/images/banner/cart-shopping.jpg" alt="Giỏ hàng trống">
+                                    <p>Chưa có sản phẩm nào trong giỏ hàng</p>
+                                    <div class="product-shopping"></div>
+                                    <a href="./pages/product.html" class="btn-back-to-shop">Tiếp tục mua sắm</a>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    
     <div class="container">
         <div class="row">
             <div class="col-3" id="list-filter">
@@ -497,6 +509,7 @@
     <!-- <script src="./assets/js/controllers/productController.js"></script> -->
     <script src="./assets/js/views/productView.js"></script>
     <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/controllers/userController.js"></script>
 </body>
 
 </html>
