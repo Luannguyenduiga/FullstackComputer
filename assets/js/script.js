@@ -45,6 +45,7 @@ function getRawValue(str) {
 
 // Cập nhật màu sắc cho đoạn nằm giữa 2 đầu kéo
 function updateColor() {
+    if (!rangeMin || !rangeMax || !track) return;
     let pMin = (rangeMin.value / MAX_LIMIT) * 100;
     let pMax = (rangeMax.value / MAX_LIMIT) * 100;
     track.style.background = `linear-gradient(to right, #ddd ${pMin}%, #3348bb ${pMin}%, #3348bb ${pMax}%, #ddd ${pMax}%)`;
@@ -79,11 +80,12 @@ function handleInput(e) {
     updateColor();
 }
 
-rangeMin.addEventListener('input', handleRange);
-rangeMax.addEventListener('input', handleRange);
-minInput.addEventListener('input', handleInput);
-maxInput.addEventListener('input', handleInput);
-
+if (rangeMin && rangeMax && minInput && maxInput) {
+    rangeMin.addEventListener('input', handleRange);
+    rangeMax.addEventListener('input', handleRange);
+    minInput.addEventListener('input', handleInput);
+    maxInput.addEventListener('input', handleInput);
+}
 
 // Hiện số lượng thông báo trong box
 function updateNoticeCount() {
@@ -98,13 +100,13 @@ function updateNoticeCount() {
         const count = notices.length;
         noticeBadge.innerText = count;
         localStorage.setItem('savedNoticeCount', count);
-        noticeBadge.style.display = 'block';
+        noticeBadge.style.display = 'flex';
     } else {
         // Nếu không có (trang product), vào kho lấy số đã lưu ra dùng
         const savedCount = localStorage.getItem('savedNoticeCount');
         if (savedCount && savedCount !== "0") {
             noticeBadge.innerText = savedCount;
-            noticeBadge.style.display = 'block';
+            noticeBadge.style.display = 'flex';
         } else {
             noticeBadge.style.display = 'none';
         }
@@ -195,5 +197,9 @@ window.removeFromCart = async function (event, productId) {
         console.error("Lỗi:", error);
     }
 };
+
+
 // Khởi tạo lần đầu
-updateColor();
+if (rangeMin) {
+    updateColor();
+}
