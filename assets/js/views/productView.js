@@ -50,6 +50,7 @@ async function initApp() {
     console.log("Đang khởi tạo dữ liệu sản phẩm...");
 
     // 1. Render Top 3 Bán chạy (Giả định Category 3 là Linh kiện, 2 là Laptop)
+    await fetchAndRender(4, 'headphoneGridPr', 3); // 3 sản phẩm bán chạy nhất của Linh Kiện
     await fetchAndRender(3, 'linhkienGridPr', 3); // 3 sản phẩm bán chạy nhất của Linh Kiện
     await fetchAndRender(2, 'laptopGridPr', 3); // 3 sản phẩm bán chạy nhất của Laptop
     await fetchAndRender(1, 'dienthoaiGridPr', 3); // 3 sản phẩm bán chạy nhất của Điện thoại
@@ -67,6 +68,9 @@ async function initApp() {
     // 4. Render Danh sách Điện Thoại (Category 1)
     await fetchAndRender(1, 'dienthoaiGrid');
     await fetchAndRender(1, 'dienthoaiGrid1'); // Hiện ảnh bên trang Product
+    // 5. Render Danh sách Headphone (Category 4)
+    await fetchAndRender(4, 'headphoneGrid');
+    await fetchAndRender(4, 'headphoneGrid1'); // Hiện ảnh bên trang Product
 }
 
 //Render sản phẩm chi tiết khi nhấn vào
@@ -127,36 +131,21 @@ async function loadProductDetail() {
 
 loadProductDetail();
 
-// 1. Tạo biến lưu trữ giỏ hàng (State)
-let cart = [];
-
-// 2. Chọn phần tử hiển thị số lượng (Cái badge màu đỏ của bạn)
-const cartBadge = document.querySelector("#shopping-cart");
-
-// 3. Hàm cập nhật giao diện số lượng
-function updateCartBadge() {
-    // Tính tổng số lượng item trong giỏ
-    cartBadge.innerText = cart.length;
-
-    // hiệu ứng
-    cartBadge.classList.add("bump");
-    setTimeout(() => cartBadge.classList.remove("bump"), 300);
-}
-
-// 4. Lắng nghe sự kiện (Dùng Event Delegation để tối ưu hiệu năng)
-document.addEventListener("click", function (e) {
-    if (e.target && e.target.classList.contains("btn-buy")) {
-        const productId = e.target.getAttribute("data-id");
-
-        // Thêm sản phẩm vào mảng (tạm thời thêm ID)
-        cart.push(productId);
-
-        // Gọi hàm cập nhật số
-        updateCartBadge();
-
-        console.log("Giỏ hàng hiện tại:", cart);
+function updateCartBadgeCount(count) {
+    // Tìm badge của giỏ hàng (trong shopping-wrapper)
+    const cartBadge = document.querySelector('.shopping-wrapper .cart-badge') || document.querySelector('.cart-icon-container .cart-badge:not(#notice-count)');
+    if (!cartBadge) return;
+    
+    if (count > 0) {
+        cartBadge.innerText = count;
+        cartBadge.style.display = 'flex';
+        cartBadge.classList.add("bump");
+        setTimeout(() => cartBadge.classList.remove("bump"), 300);
+    } else {
+        cartBadge.style.display = 'none';
+        cartBadge.innerText = 0;
     }
-});
+}
 
 async function loadCartToSidebar() {
     const cartDiv = document.querySelector('.product-shopping');
@@ -170,7 +159,13 @@ async function loadCartToSidebar() {
     const res = await fetch(`http://localhost:3000/api/cart/${userId}`);
     const cartItems = await res.json();
 
+    let totalQty = 0;
+
     if (cartItems.length > 0) {
+        cartItems.forEach(item => {
+            totalQty += item.quantity;
+        });
+
         // Có hàng: Ẩn hình ảnh & chữ trống trải
         if (emptyMsg) emptyMsg.style.display = 'none';
         if (emptyImg) emptyImg.style.display = 'none';
@@ -189,8 +184,11 @@ async function loadCartToSidebar() {
         // Trống: Hiện lại thông báo
         if (emptyMsg) emptyMsg.style.display = 'block';
         if (emptyImg) emptyImg.style.display = 'block';
-        cartDiv.innerHTML = "";
+        if (cartDiv) cartDiv.innerHTML = "";
     }
+
+    // Cập nhật số lượng trên giỏ hàng
+    updateCartBadgeCount(totalQty);
 
     // Hàm xóa sản phẩm khỏi giỏ hàng
     async function removeFromCart(event, productId) {
@@ -225,4 +223,73 @@ async function loadCartToSidebar() {
 
 
 // Chạy hàm khởi tạo
-document.addEventListener('DOMContentLoaded', initApp);
+document.addEventListener('DOMContentLoaded', () => {
+    initApp();
+    loadCartToSidebar();
+});
+
+// Sự kiện cho nút "Mua Ngay"
+document.addEventListener('click', function(e) {
+    if (e.target && e.target.classList.contains('btn-buy-cart')) {
+        const productId = e.target.getAttribute('data-id');
+        showPaymentModal(productId);
+    }
+});
+
+async function showPaymentModal(productId) {
+    try {
+        const res = await fetch(`http://localhost:3000/product/${productId}`);
+        const product = await res.json();
+        
+        let modal = document.getElementById('payment-modal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'payment-modal';
+            document.body.appendChild(modal);
+        }
+        
+        // Tạo mã QR VietQR (Dùng thông tin tài khoản MB Bank mẫu)
+        const qrUrl = `https://img.vietqr.io/image/mbbank-0933475753-compact2.jpg?amount=${product.price}&addInfo=Thanh toan don hang SP${productId}&accountName=LUAN NGUYEN`;
+        
+        modal.innerHTML = `
+            <div class="modal-overlay"></div>
+            <div class="modal-content-pay">
+                <button class="close-modal">&times;</button>
+                <div class="pay-header">
+                    <i class="fa-solid fa-circle-check" style="color: #4CAF50; font-size: 40px;"></i>
+                    <h2>Hóa Đơn Thanh Toán</h2>
+                </div>
+                <div class="bill-details">
+                    <div class="bill-row">
+                        <span>Sản phẩm:</span>
+                        <strong>${product.name}</strong>
+                    </div>
+                    <div class="bill-row">
+                        <span>Số lượng:</span>
+                        <strong>1</strong>
+                    </div>
+                    <div class="bill-row total-row">
+                        <span>Tổng tiền:</span>
+                        <strong class="total-price">${Number(product.price).toLocaleString()}₫</strong>
+                    </div>
+                </div>
+                <div class="qr-section">
+                    <p>Quét mã QR bằng ứng dụng ngân hàng</p>
+                    <div class="qr-box">
+                        <img id="bill-qr-code" src="${qrUrl}" alt="Mã QR Thanh Toán" />
+                    </div>
+                    <p class="qr-hint">Hệ thống sẽ tự động xác nhận sau khi nhận được thanh toán.</p>
+                </div>
+            </div>
+        `;
+
+        modal.classList.add('active');
+
+        // Close event
+        modal.querySelector('.close-modal').onclick = () => modal.classList.remove('active');
+        modal.querySelector('.modal-overlay').onclick = () => modal.classList.remove('active');
+    } catch(err) {
+        console.error("Lỗi show bill:", err);
+        alert("Lỗi không thể tải thông tin thanh toán!");
+    }
+}
