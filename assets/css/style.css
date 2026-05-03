@@ -291,16 +291,8 @@ body {
   color: white;
 }
 
-.cart-badge {
-  transition: transform 0.3s ease;
-}
 
-/* Hiệu ứng khi số nhảy */
-.cart-badge.bump {
-  transform: scale(1.5);
-  background-color: #ff4757;
-  /* Đổi màu nhẹ để gây chú ý */
-}
+
 
 .brand-container {
   display: flex;
@@ -622,23 +614,6 @@ body {
   font-size: 1.6rem;
 }
 
-.cart-badge {
-  position: absolute;
-  top: -8px;
-  right: -10px;
-  background-color: #ff4757;
-  /* Màu đỏ thông báo */
-  color: white;
-  font-size: 11px;
-  font-weight: bold;
-  min-width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: 2px solid #fff;
-}
 
 /* Dropdown Content */
 .cart-dropdown-content {
@@ -1560,4 +1535,148 @@ body {
 #maintenanceModal {
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(8px);
+}
+
+/* Payment Modal */
+#payment-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+#payment-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+#payment-modal .modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+#payment-modal .modal-content-pay {
+  position: relative;
+  background: #fff;
+  width: 400px;
+  max-width: 90%;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 10000;
+}
+
+#payment-modal.active .modal-content-pay {
+  transform: translateY(0);
+}
+
+#payment-modal .close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
+  transition: 0.2s;
+}
+
+#payment-modal .close-modal:hover {
+  color: #ff4757;
+}
+
+#payment-modal .pay-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#payment-modal .pay-header h2 {
+  font-size: 22px;
+  color: #333;
+  margin-top: 10px;
+}
+
+#payment-modal .bill-details {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+#payment-modal .bill-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: #555;
+}
+
+#payment-modal .bill-row:last-child {
+  margin-bottom: 0;
+}
+
+#payment-modal .bill-row strong {
+  color: #333;
+  text-align: right;
+  max-width: 60%;
+}
+
+#payment-modal .total-row {
+  border-top: 1px dashed #ccc;
+  padding-top: 10px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+#payment-modal .total-price {
+  color: #ff4757 !important;
+  font-size: 22px;
+}
+
+#payment-modal .qr-section {
+  text-align: center;
+}
+
+#payment-modal .qr-section p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+#payment-modal .qr-box {
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+#payment-modal .qr-box img {
+  width: 200px;
+  height: 200px;
+  display: block;
+}
+
+#payment-modal .qr-hint {
+  font-size: 12px;
+  color: #888;
+  font-style: italic;
 }
