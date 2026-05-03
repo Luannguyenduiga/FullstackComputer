@@ -5,15 +5,15 @@ import { promisify } from "util";
 import { fileURLToPath } from "url";
 import { sql } from "../configDB.js";
 import { error } from "console";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"; // Thêm import jsonwebtoken
+import bcrypt from "bcrypt"; // Thêm import bcrypt
 
 const pump = promisify(pipeline);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const IMAGE_ROOT = path.join(__dirname, "../../images");
-const JWT_SECRET = "fullstack-computer-secret-2026";
+const JWT_SECRET = "fullstack-computer-secret-2026"; // Thêm biến JWT_SECRET để lưu trữ secret key cho JWT(Json Web Token là một chuẩn mở dựa trên JSON để truyền thông tin an toàn giữa các bên dưới dạng đối tượng JSON. Thông tin này có thể được xác minh và tin cậy vì nó được ký điện tử.)
 
 // Export function ra ngoài để đăng ký vào Fastify
 export default async function productController(fastify, options) {
