@@ -1,3 +1,7 @@
+window.getApiBase = window.getApiBase || function() {
+    return (window.location.origin.includes('127.0.0.1') || window.location.origin.includes('localhost:5500')) ? 'http://localhost:3000' : '';
+};
+
 /**
  * Hàm render sản phẩm theo danh mục
  * @param {number} categoryId - ID của danh mục trong Database
@@ -10,7 +14,7 @@ async function fetchAndRender(categoryId, elementId, limit = null) {
 
     try {
         // Gọi đến API Fastify bạn vừa viết
-        const response = await fetch(`http://localhost:3000/products/category/${categoryId}`);
+        const response = await fetch(`${window.getApiBase()}/products/category/${categoryId}`);
         if (!response.ok) throw new Error('Network response was not ok');
 
         let products = await response.json();
@@ -25,7 +29,7 @@ async function fetchAndRender(categoryId, elementId, limit = null) {
             <div class="product-link" onclick="window.open('../../pages/detailproduct.html?id=${product.product_id}', '_blank')">
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="http://localhost:3000${product.image_url}" alt="${product.image_url}"> 
+                        <img src="${window.getApiBase()}${product.image_url}" alt="${product.image_url}"> 
                     </div>
                     <div class="product-info">
                         <h4>${product.name}</h4>
@@ -80,7 +84,7 @@ const productId = params.get("id");
 
 async function loadProductDetail() {
     try {
-        const res = await fetch(`http://localhost:3000/product/${productId}`);
+        const res = await fetch(`${window.getApiBase()}/product/${productId}`);
         const product = await res.json();
 
         const container = document.querySelector(".product.inform");
@@ -95,7 +99,7 @@ async function loadProductDetail() {
                 <!-- Cột ảnh -->
                 <div class="col-6">
                     <div class="product-detail-image">
-                        <img src="http://localhost:3000${product.image_url}" alt="${product.name}">
+                        <img src="${window.getApiBase()}${product.image_url}" alt="${product.name}">
                     </div>
                 </div>
 
@@ -169,7 +173,7 @@ async function loadCartToSidebar() {
     const emptyImg = cartEmpty.querySelector('img');
 
     const userId = 3;
-    const res = await fetch(`http://localhost:3000/api/cart/${userId}`);
+    const res = await fetch(`${window.getApiBase()}/api/cart/${userId}`);
     const cartItems = await res.json();
 
     let totalQty = 0;
@@ -185,7 +189,7 @@ async function loadCartToSidebar() {
 
         cartDiv.innerHTML = cartItems.map(item => `
             <div class="cart-item">
-                <img src="http://localhost:3000/${item.image_url}" alt="${item.product_name}">
+                <img src="${window.getApiBase()}/${item.image_url}" alt="${item.product_name}">
                 <div class="cart-item-info">
                     <p class="name">${item.product_name}</p>I
                     <p class="price">${Number(item.price).toLocaleString()}₫ x ${item.quantity}</p>
@@ -214,7 +218,7 @@ async function loadCartToSidebar() {
 
         try {
             // 1. Gọi API xóa sản phẩm (Bạn cần đảm bảo Backend có endpoint này)
-            const res = await fetch(`http://localhost:3000/api/cart/remove/${userId}/${productId}`, {
+            const res = await fetch(`${window.getApiBase()}/api/cart/remove/${userId}/${productId}`, {
                 method: 'DELETE'
             });
 
@@ -251,7 +255,7 @@ document.addEventListener('click', function(e) {
 
 async function showPaymentModal(productId) {
     try {
-        const res = await fetch(`http://localhost:3000/product/${productId}`);
+        const res = await fetch(`${window.getApiBase()}/product/${productId}`);
         const product = await res.json();
         
         let modal = document.getElementById('payment-modal');

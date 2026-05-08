@@ -99,8 +99,12 @@
 </div>
 
 <script>
+window.getApiBase = window.getApiBase || function() {
+    return (window.location.origin.includes('127.0.0.1') || window.location.origin.includes('localhost:5500')) ? 'http://localhost:3000' : '';
+};
+
     const USER_ID = 3; // Theo mã code bạn cung cấp
-    const API_BASE = "http://localhost:3000/api/cart";
+    const API_BASE = `${window.getApiBase()}/api/cart`;
 
     function formatVND(amount) {
         return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
@@ -150,7 +154,7 @@
 
             html += `
                 <div class="cart-item">
-                    <img src="http://localhost:3000${item.image_url}" class="item-img" alt="${item.product_name}" onerror="this.src='https://via.placeholder.com/100'">
+                    <img src="${window.getApiBase()}${item.image_url}" class="item-img" alt="${item.product_name}" onerror="this.src='https://via.placeholder.com/100'">
                     <div class="item-info">
                         <h4 class="item-name">${item.product_name}</h4>
                         <div class="item-price">${formatVND(item.price)}</div>

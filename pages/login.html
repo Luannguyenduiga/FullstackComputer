@@ -339,7 +339,11 @@
     <script src="../assets/js/controllers/userController.js"></script>
     <script src="../assets/js/models/Auth.js"></script>
     <script>
-      const API = "http://localhost:3000";
+window.getApiBase = window.getApiBase || function() {
+    return (window.location.origin.includes('127.0.0.1') || window.location.origin.includes('localhost:5500')) ? 'http://localhost:3000' : '';
+};
+
+      const API = `${window.getApiBase()}`;
       const loginForm = document.getElementById("loginForm");
       const alertBox = document.getElementById("alert-box");
       const btn = document.getElementById("btn-login");

@@ -124,6 +124,10 @@
   </div>
 
   <script>
+window.getApiBase = window.getApiBase || function() {
+    return (window.location.origin.includes('127.0.0.1') || window.location.origin.includes('localhost:5500')) ? 'http://localhost:3000' : '';
+};
+
     const form = document.getElementById('productForm');
     const imgPreview = document.getElementById('imgPreview');
 
@@ -143,7 +147,7 @@
       const formData = new FormData(form);
 
       try {
-        const res = await fetch('http://localhost:3000/products', {
+        const res = await fetch(`${window.getApiBase()}/products`, {
           method: 'POST',
           body: formData
         });

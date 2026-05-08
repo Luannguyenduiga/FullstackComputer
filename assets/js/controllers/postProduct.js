@@ -1,3 +1,7 @@
+window.getApiBase = window.getApiBase || function() {
+    return (window.location.origin.includes('127.0.0.1') || window.location.origin.includes('localhost:5500')) ? 'http://localhost:3000' : '';
+};
+
 const form = document.querySelector('form');
 
 form.addEventListener('submit', async (e) => {
@@ -12,7 +16,7 @@ form.addEventListener('submit', async (e) => {
     description: document.querySelector('#description').value
   };
 
-  const res = await fetch('http://localhost:3000/products', {
+  const res = await fetch(`${window.getApiBase()}/products`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

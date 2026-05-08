@@ -131,6 +131,10 @@
     </div>
 
     <script>
+window.getApiBase = window.getApiBase || function() {
+    return (window.location.origin.includes('127.0.0.1') || window.location.origin.includes('localhost:5500')) ? 'http://localhost:3000' : '';
+};
+
         const productForm = document.getElementById('productForm');
         const imgPreview = document.getElementById('imgPreview');
         const submitBtn = document.getElementById('submitBtn');
@@ -163,7 +167,7 @@
                 document.getElementById('imageInput').required = false; // Sửa thì không bắt buộc chọn lại ảnh
                 document.getElementById('labelImage').innerText = "Ảnh sản phẩm (để trống nếu giữ nguyên)";
 
-                const response = await fetch(`http://localhost:3000/edit/product/${productId}`); // Gọi API để lấy dữ liệu sản phẩm theo id
+                const response = await fetch(`${window.getApiBase()}/edit/product/${productId}`); // Gọi API để lấy dữ liệu sản phẩm theo id
                 if (!response.ok) throw new Error("Không tìm thấy sản phẩm");
 
                 const product = await response.json();
@@ -213,7 +217,7 @@
 
             try {
                 
-                const res = await fetch(`http://localhost:3000/update/product/${productId}`, {
+                const res = await fetch(`${window.getApiBase()}/update/product/${productId}`, {
                     method: 'PUT',
                     headers: headers,
                     body: body

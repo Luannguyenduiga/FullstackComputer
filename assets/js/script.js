@@ -1,3 +1,7 @@
+window.getApiBase = window.getApiBase || function() {
+    return (window.location.origin.includes('127.0.0.1') || window.location.origin.includes('localhost:5500')) ? 'http://localhost:3000' : '';
+};
+
 document.addEventListener('DOMContentLoaded', function () {
     let currentIndex = 0;
     const slides = document.querySelector('.slider');
@@ -152,7 +156,7 @@ window.addToCart = async function (productId, name, price) {
     console.log("Đang thêm sản phẩm:", productId); // Để debug kiểm tra nút có ăn không
 
     try {
-        const response = await fetch('http://localhost:3000/api/cart/add', {
+        const response = await fetch(`${window.getApiBase()}/api/cart/add`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -184,7 +188,7 @@ window.removeFromCart = async function (event, productId) {
     
     try {
         // Đường dẫn gốc là /api/cart/remove, sau đó mới nối đuôi ? vào
-        const url = `http://localhost:3000/api/cart/remove?product_id=${productId}&user_id=${userId}`;
+        const url = `${window.getApiBase()}/api/cart/remove?product_id=${productId}&user_id=${userId}`;
 
         const response = await fetch(url, { method: 'DELETE' });
         const result = await response.json();
@@ -215,7 +219,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         // Fetch all products once for search
         try {
-            const res = await fetch('http://localhost:3000/products');
+            const res = await fetch(`${window.getApiBase()}/products`);
             if (res.ok) {
                 allProducts = await res.json();
             }
