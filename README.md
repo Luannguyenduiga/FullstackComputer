@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Fastify_logo.svg" width="150" alt="Fastify Logo" />
+  <img src="https://raw.githubusercontent.com/fastify/graphics/master/fastify-landscape-dark.png" width="350" alt="Fastify Logo" />
 </p>
 <p align="center">Hệ thống thương mại điện tử bán linh kiện máy tính hiệu năng cao, xây dựng trên nền tảng Fastify với kiến trúc MVC.</p>
 
