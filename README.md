@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://www.fastify.io/" target="blank"><img src="https://raw.githubusercontent.com/fastify/graphics/master/fastify-landscape-dark.png" width="350" alt="Fastify Logo" /></a>
+  <img src="https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_b4be3611382fc13473f73bc0b12bc574/fastify.png" width="150" alt="Fastify Logo" />
 </p>
 
 <p align="center">Hệ thống thương mại điện tử bán linh kiện máy tính hiệu năng cao, xây dựng trên nền tảng Fastify với kiến trúc MVC.</p>
