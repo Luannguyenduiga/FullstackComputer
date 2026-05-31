@@ -184,7 +184,9 @@ window.removeFromCart = async function (event, productId) {
         event.stopPropagation();
     }
 
-    const userId = 2;
+    if (!confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?")) return;
+
+    const userId = 3;
     
     try {
         // Đường dẫn gốc là /api/cart/remove, sau đó mới nối đuôi ? vào

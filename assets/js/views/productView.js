@@ -191,7 +191,7 @@ async function loadCartToSidebar() {
             <div class="cart-item">
                 <img src="${window.getApiBase()}/${item.image_url}" alt="${item.product_name}">
                 <div class="cart-item-info">
-                    <p class="name">${item.product_name}</p>I
+                    <p class="name">${item.product_name}</p>
                     <p class="price">${Number(item.price).toLocaleString()}₫ x ${item.quantity}</p>
                 </div>
                 <button class="remove-btn" onclick="removeFromCart(event,'${item.product_id}')">×</button>
@@ -207,35 +207,7 @@ async function loadCartToSidebar() {
     // Cập nhật số lượng trên giỏ hàng
     updateCartBadgeCount(totalQty);
 
-    // Hàm xóa sản phẩm khỏi giỏ hàng
-    async function removeFromCart(event, productId) {
-        // Ngăn chặn sự kiện click lan ra các phần tử cha (nếu có)
-        event.stopPropagation();
 
-        const userId = 3; // ID user cố định như trong code của bạn
-
-        if (!confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?")) return; // !confirm là để hiện hộp thoại xác nhận trước khi xóa
-
-        try {
-            // 1. Gọi API xóa sản phẩm (Bạn cần đảm bảo Backend có endpoint này)
-            const res = await fetch(`${window.getApiBase()}/api/cart/remove/${userId}/${productId}`, {
-                method: 'DELETE'
-            });
-
-            if (res.ok) {
-                // 2. Nếu xóa thành công trên Server, gọi lại hàm load giỏ hàng để cập nhật giao diện
-                console.log("Xóa thành công sản phẩm:", productId);
-                await loadCartToSidebar();
-
-                // Nếu có hàm cập nhật badge số lượng, hãy gọi nó ở đây
-                // updateCartBadge(); 
-            } else {
-                alert("Không thể xóa sản phẩm. Vui lòng thử lại!");
-            }
-        } catch (err) {
-            console.error("Lỗi khi xóa sản phẩm:", err);
-        }
-    }
 }
 
 
