@@ -167,6 +167,7 @@ function updateCartBadgeCount(count) {
 async function loadCartToSidebar() {
     const cartDiv = document.querySelector('.product-shopping');
     const cartEmpty = document.querySelector('.cart-empty');
+    if (!cartEmpty) return; // Khi giỏ hàng không có sản phẩm thì return về giao diện rỗng
 
     // Giả sử bạn thêm 1 cái p để hiện thông báo trống
     const emptyMsg = cartEmpty.querySelector('p');
