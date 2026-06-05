@@ -1,0 +1,279 @@
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotline & Hỗ trợ | Fullstack Computer</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #0071e3;
+        --dark: #1d1d1f;
+        --gray: #f5f5f7;
+        --success: #28a745;
+      }
+
+      body {
+        font-family: "Lexend", sans-serif;
+        background-color: var(--gray);
+        color: var(--dark);
+        margin: 0;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header Hotline */
+      .support-hero {
+        background: white;
+        padding: 80px 0;
+        text-align: center;
+      }
+
+      .support-hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+      }
+      .support-hero p {
+        font-size: 1.2rem;
+        color: #6e6e73;
+      }
+
+      /* Hotline Cards */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-top: -40px;
+      }
+
+      .contact-card {
+        background: white;
+        padding: 40px;
+        border-radius: 24px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        transition: 0.3s;
+      }
+
+      .contact-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .icon-box {
+        width: 70px;
+        height: 70px;
+        background: var(--gray);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 1.8rem;
+        color: var(--primary);
+      }
+
+      .phone-number {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--primary);
+        text-decoration: none;
+        display: block;
+        margin: 15px 0;
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        color: var(--success);
+        background: rgba(40, 167, 69, 0.1);
+        padding: 5px 15px;
+        border-radius: 50px;
+      }
+
+      /* Support Form */
+      .support-section {
+        padding: 80px 0;
+      }
+      .flex-container {
+        display: flex;
+        gap: 50px;
+        background: white;
+        padding: 50px;
+        border-radius: 30px;
+        align-items: center;
+      }
+
+      .form-info {
+        flex: 1;
+      }
+      .form-box {
+        flex: 1;
+      }
+
+      .input-group {
+        margin-bottom: 20px;
+      }
+      .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+      .input-group input,
+      .input-group textarea {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #d2d2d7;
+        border-radius: 12px;
+        font-family: inherit;
+      }
+
+      .btn-call {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 18px 30px;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        font-size: 1rem;
+      }
+
+      @@media (max-width: 768px) {
+        .flex-container {
+          flex-direction: column;
+          padding: 30px;
+        }
+        .support-hero h1 {
+          font-size: 2rem;
+        }
+      }
+    </style>
+      <link rel="stylesheet" href="/assets/css/responsive.css">
+</head>
+  <body>
+    <section class="support-hero">
+      <div class="container">
+        <h1>Chúng tôi luôn lắng nghe</h1>
+        <p>Đội ngũ chuyên gia Fullstack Computer sẵn sàng hỗ trợ bạn 24/7</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Hotline Mua hàng -->
+        <div class="contact-card">
+          <div class="icon-box"><i class="fa-solid fa-cart-shopping"></i></div>
+          <h3>Tư vấn mua hàng</h3>
+          <p>Hỗ trợ chọn cấu hình, check kho và ưu đãi sinh viên.</p>
+          <a href="tel:18003667" class="phone-number">1800 3667</a>
+          <div class="status">
+            <i class="fa-solid fa-circle"></i> Đang hoạt động
+          </div>
+        </div>
+
+        <!-- Hotline Kỹ thuật -->
+        <div class="contact-card">
+          <div class="icon-box"><i class="fa-solid fa-microchip"></i></div>
+          <h3>Hỗ trợ Kỹ thuật</h3>
+          <p>Xử lý sự cố phần mềm, phần cứng và AI Workstation.</p>
+          <a href="tel:18003668" class="phone-number">1800 3668</a>
+          <div class="status">
+            <i class="fa-solid fa-circle"></i> Đang hoạt động
+          </div>
+        </div>
+
+        <!-- Hotline Khiếu nại -->
+        <div class="contact-card">
+          <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
+          <h3>Chăm sóc khách hàng</h3>
+          <p>Giải quyết khiếu nại, bảo hành và dịch vụ hậu mãi.</p>
+          <a href="tel:18003669" class="phone-number">1800 3669</a>
+          <div class="status">
+            <i class="fa-solid fa-circle"></i> Đang hoạt động
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="support-section">
+      <div class="container">
+        <div class="flex-container">
+          <div class="form-info">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px">
+              Để lại lời nhắn
+            </h2>
+            <p>
+              Nếu bạn gặp vấn đề ngoài giờ hành chính, hãy để lại thông tin. Đội
+              ngũ của Luân sẽ phản hồi ngay sau 30 phút làm việc.
+            </p>
+            <div style="margin-top: 30px">
+              <p>
+                <i
+                  class="fa-solid fa-envelope"
+                  style="color: var(--primary)"
+                ></i>
+                support@fullstackcomputer.vn
+              </p>
+              <p>
+                <i
+                  class="fa-solid fa-location-dot"
+                  style="color: var(--primary)"
+                ></i>
+                Tầng 18, Lê Văn Sỹ, Tân Bình, TP.HCM
+              </p>
+            </div>
+          </div>
+          <div class="form-box">
+            <form>
+              <div class="input-group">
+                <label>Họ và tên</label>
+                <input type="text" placeholder="Nguyễn Thành Luân" />
+              </div>
+              <div class="input-group">
+                <label>Số điện thoại</label>
+                <input type="tel" placeholder="09xx xxx xxx" />
+              </div>
+              <div class="input-group">
+                <label>Vấn đề cần hỗ trợ</label>
+                <textarea
+                  rows="4"
+                  placeholder="Mô tả ngắn gọn vấn đề của bạn..."
+                ></textarea>
+              </div>
+              <button
+                type="button"
+                class="btn-call"
+                onclick="
+                  alert('Cảm ơn bạn! Đội ngũ tư vấn sẽ gọi lại trong giây lát.')
+                "
+              >
+                YÊU CẦU GỌI LẠI
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,184 @@
+/* Tông màu chủ đạo: Xanh Navy và Đỏ đậm */
+:root {
+    --news-dark: #1a1a1a;
+    --news-primary: #b21f1f;
+    --news-blue: #1a2a6c;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Style cho Top Bar */
+.news-top-bar {
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    padding: 8px 0;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.top-links a {
+    text-decoration: none;
+    color: #666;
+    margin-left: 15px;
+    transition: 0.3s;
+}
+
+.top-links a:hover {
+    color: var(--news-primary);
+}
+
+/* Style cho Main Nav */
+.news-nav-wrapper {
+    background: #fff;
+    padding: 15px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Logo phong cách Tạp chí */
+.news-logo a {
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--news-blue);
+    letter-spacing: -1px;
+}
+
+.news-logo span {
+    background: var(--news-primary);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+
+/* Menu items */
+.news-menu {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.news-menu li a {
+    text-decoration: none;
+    color: var(--news-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: 0.3s;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.news-menu li.active a,
+.news-menu li a:hover {
+    color: var(--news-primary);
+}
+
+/* Hiệu ứng gạch chân khi hover */
+.news-menu li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    background: var(--news-primary);
+    bottom: 0;
+    left: 0;
+    transition: 0.3s;
+}
+
+.news-menu li a:hover::after {
+    width: 100%;
+}
+
+/* Icons */
+.news-actions button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--news-blue);
+    cursor: pointer;
+    margin-left: 15px;
+    transition: 0.3s;
+}
+
+.news-actions button:hover {
+    color: var(--news-primary);
+    transform: scale(1.1);
+}
+
+/* Style cho thẻ Dialog */
+.search-modal {
+    /* 1. Kích thước nhỏ gọn */
+    width: 350px; 
+    border: none;
+    padding: 15px;
+    background: #ffffff;
+    border-radius: 15px;
+    
+    /* 2. Định vị bên dưới kính lúp */
+    position: fixed;
+    top: 120px;          /* Khoảng cách từ đỉnh màn hình xuống (chỉnh sao cho khớp dưới Nav của bạn) */
+    right: 7%;          /* Căn theo lề phải để khớp với vị trí icons trên Nav */
+    left: auto;         /* Hủy bỏ căn giữa cũ */
+    margin: 0;
+    
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    
+    /* 3. Hiệu ứng trượt xuống và hiện hình */
+    transform: translateY(-20px);
+    opacity: 0;
+    pointer-events: none; /* Tránh click nhầm khi đang ẩn */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block; 
+}
+
+/* Khi dialog mở */
+.search-modal[open] {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Tùy chọn: Có thể bỏ backdrop hoặc làm nó trong suốt hoàn toàn */
+.search-modal::backdrop {
+    background: transparent; /* Để người dùng vẫn thấy nội dung web bên dưới */
+}
+
+/* Tinh chỉnh ô input bên trong */
+.search-wrapper {
+    display: flex;
+    flex-direction: column; /* Chuyển thành hàng dọc để tiết kiệm không gian ngang */
+    gap: 10px;
+}
+
+.search-field {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: #f1f2f6;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+
+#searchInput {
+    width: 100%;
+    font-size: 1rem;
+    padding: 5px;
+    border: none;
+    background: transparent;
+    outline: none;
+}
+
+.btn-close-dialog {
+    width: 100%; /* Nút đóng dài ra cho dễ bấm */
+    padding: 8px;
+    font-size: 0.8rem;
+    border-radius: 10px;
+}

@@ -1,0 +1,173 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng sản phẩm</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      width: 400px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .img-preview {
+      width: 100%;
+      height: 150px;
+      border: 1px dashed #007bff;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fafafa;
+    }
+
+    .img-preview img {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+    }
+  </style>
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Đăng sản phẩm</h1>
+    <form id="productForm" enctype="multipart/form-data">
+      <div class="input-group">
+        <label>Tên sản phẩm*</label>
+        <input type="text" name="name" required>
+      </div>
+      <div class="input-group">
+        <label>Giá*</label>
+        <input type="number" name="price" required>
+      </div>
+      <div class="input-group">
+        <label>Danh mục*</label>
+        <select name="category_id" required>
+          <option value="">Chọn danh mục</option>
+          <option value="1">Điện thoại</option>
+          <option value="2">Laptop</option>
+          <option value="3">Linh kiện</option>
+          <option value="4">Headphone</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Hãng*</label>
+        <select name="brand_id" required>
+          <option value="">Chọn hãng</option>
+          <option value="1">Intel</option>
+          <option value="2">Crossair</option>
+          <option value="3">Gigabyte</option>
+          <option value="4">Furry</option>
+          <option value="5">Iphone</option>
+          <option value="6">Acer</option>
+          <option value="7">Asus</option>
+          <option value="8">MSI</option>
+          <option value="9">Dell</option>
+          <option value="10">Marshall</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Mô tả</label>
+        <textarea name="description"></textarea>
+      </div>
+      <div class="input-group">
+        <label>Ảnh sản phẩm*</label>
+        <input type="file" name="image" accept="image/*" required>
+      </div>
+      <div class="img-preview" id="imgPreview">Preview</div>
+      <button type="submit">Đăng sản phẩm</button>
+    </form>
+  </div>
+
+  <script>
+window.getApiBase = window.getApiBase || function() {
+    return (window.location.origin.includes('127.0.0.1') || window.location.origin.includes('localhost:5500')) ? 'http://localhost:3000' : '';
+};
+
+    const form = document.getElementById('productForm');
+    const imgPreview = document.getElementById('imgPreview');
+
+    form.image.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          imgPreview.innerHTML = `<img src="${reader.result}" alt="Preview">`;
+        };
+        reader.readAsDataURL(file);
+      } else imgPreview.innerHTML = 'Preview';
+    });
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch(`${window.getApiBase()}/products`, {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert('Đăng sản phẩm thành công!');
+          form.reset();
+          imgPreview.innerHTML = 'Preview';
+        } else alert('Lỗi: ' + data.error);
+      } catch (err) {
+        console.error(err);
+        alert('Lỗi server');
+      }
+    });
+  </script>
+</body>
+
+</html>
+
+

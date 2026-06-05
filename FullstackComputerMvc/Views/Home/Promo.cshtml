@@ -1,0 +1,327 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siêu Ưu Đãi - Fullstack Computer</title>
+    <link rel="stylesheet" href="/assets/css/grid.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/nav.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #fcebeb;
+        }
+
+        .promo-header {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(135deg, #186ba2, #4f55be);
+            color: white;
+            border-radius: 0 0 50px 50px;
+            margin-bottom: 50px;
+        }
+
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding-bottom: 80px;
+        }
+
+        /* Thẻ Khuyến Mãi kiểu Ticket */
+        .promo-card {
+            background: #fff;
+            display: flex;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .promo-card:hover {
+            transform: scale(1.03);
+        }
+
+        /* Phần trái của vé */
+        .promo-left {
+            background: #b21f1f;
+            color: white;
+            padding: 20px;
+            width: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-right: 2px dashed #fcebeb;
+        }
+
+        .promo-left h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .promo-left span {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        /* Phần phải của vé */
+        .promo-right {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .promo-right h3 {
+            color: #1a2a6c;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .promo-right p {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .btn-copy {
+            background: #f1f2f6;
+            border: 1px dashed #b21f1f;
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+            font-weight: bold;
+            color: #b21f1f;
+            transition: 0.3s;
+        }
+
+        .promo-card:hover .btn-copy {
+            background: #b21f1f;
+            color: #fff;
+            border-style: solid;
+        }
+
+        /* Các lỗ khuyết kiểu vé xem phim */
+        .promo-card::before,
+        .promo-card::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #fcebeb;
+            border-radius: 50%;
+            left: 90px;
+        }
+
+        .promo-card::before {
+            top: -10px;
+        }
+
+        .promo-card::after {
+            bottom: -10px;
+        }
+    </style>
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="container1">
+        <div class="nav">
+            <ul>
+                <li><a href="/Home/AboutUs" target="_blank"><i class="fa-regular fa-building"></i> Về Chúng
+                        Tôi</a></li>
+                <li><a href="/Home/Business" target="_blank"><i class="fa-solid fa-briefcase"></i> Dành cho
+                        doanh nghiệp</a></li>
+                <li><a href="/Home/AppleEdu" target="_blank"><i class="fa-solid fa-graduation-cap"></i> Apple
+                        education</a></li>
+                <li><a href="#"><i class="fa-solid fa-phone"></i> Hotline</a></li>
+                <li><a href="/Home/TechNews" target="_blank"><i class="fa-solid fa-rss"></i> tin công nghệ</a>
+                </li>
+                <li><a href="#"><i class="fa-solid fa-desktop"></i> xây dựng cấu hình</a></li>
+                <li><a href="/Home/Promo"><i class="fa-solid fa-gift"></i> khuyến mãi</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header-nav">
+        <div class="row align-center">
+            <div class="col-3 ?">
+                <button class="btn-category"><i class="fa-solid fa-bars"></i> Danh mục sản phẩm</button>
+            </div>
+
+            <div class="search-container">
+                <input type="text" placeholder="Bạn muốn mua gì hôm nay...">
+                <div class="search-keywords">
+                    <a href="#">IPhone 17</a>
+                    <a href="#">MacBook Air M4</a>
+                    <a href="#">Laptop</a>
+                    <a href="#">Laptop RTX 50 series</a>
+                    <a href="#">Màn Hình</a>
+                    <a href="#">VGA</a>
+                    <a href="#">Build PC</a>
+                </div>
+            </div>
+
+            <div class="col-3 flex-end">
+                <div class="user-info-header">
+                    <img class="avt-header"
+                        src="https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-1/513826810_1412559273230131_6427666480297972674_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=106&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeHGN7ybpgLnQyg-KPinyHu7qUxuDsymr06pTG4OzKavTmNbt3JbOe6IwJ3LvHdRTlQGQQIVwnKa5AKw2ajPUiOG&_nc_ohc=sgXqvYjlzQYQ7kNvwFGlxEy&_nc_oc=AdmLIS6O355erxwZ9brCPqbO8drzh6FIreG1UcnBJGb_i_0XS_mixgCnZLfbPyDWDGU&_nc_zt=24&_nc_ht=scontent.fsgn5-10.fna&_nc_gid=p8YYj-xdohxl06HocD_B6Q&_nc_ss=8&oh=00_Afzm1NtQpnyk2YLm87eYMommV_N7ZR_NPWA-YLiRuLE-xQ&oe=69B8B936"
+                        alt="">
+                    <div class="avatar"></div>
+                    <div class="user-text">
+                        <p class="small-text">Xin chào </p>
+                        <a class="small-text" href="/Home/AdminPage" target="_blank">Luân Nguyễn</a>
+                        <!--Target="_blank" là mở tab mới-->
+                    </div>
+                    <a href="#" class="cart-wrapper">
+                        <div class="cart-icon-container">
+                            <i class="fa-solid fa-bell icon-header"></i>
+                            <span class="cart-badge">9+</span>
+                        </div>
+                    </a>
+                    <a href="/Home/Shopping" class="cart-wrapper">
+                        <div class="cart-icon-container">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="cart-badge" id="shopping-cart">0</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <header class="promo-header">
+        <div class="container">
+            <h1>🔥 SIÊU ƯU ĐÃI THÁNG 4 🔥</h1>
+            <p>Săn Deal cực đỉnh - Nhận mã giảm giá độc quyền từ Fullstack Computer</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="promo-grid">
+            <div class="promo-card" onclick="copyCode('LAPTOP2M')">
+                <div class="promo-left">
+                    <h2>2M</h2>
+                    <span>GIẢM</span>
+                </div>
+                <div class="promo-right">
+                    <h3>Voucher Laptop Gaming</h3>
+                    <p>Giảm trực tiếp 2 triệu cho dòng RTX 40 series.</p>
+                    <div class="btn-copy">Mã: LAPTOP2M</div>
+                </div>
+            </div>
+
+            <div class="promo-card" onclick="copyCode('BUILDPC500')">
+                <div class="promo-left">
+                    <h2>500K</h2>
+                    <span>GIẢM</span>
+                </div>
+                <div class="promo-right">
+                    <h3>Voucher Build PC</h3>
+                    <p>Áp dụng cho đơn hàng linh kiện từ 10 triệu đồng.</p>
+                    <div class="btn-copy">Mã: BUILDPC500</div>
+                </div>
+            </div>
+
+            <div class="promo-card" onclick="copyCode('FREESHIP')">
+                <div class="promo-left">
+                    <i class="fa-solid fa-truck" style="font-size: 1.5rem;"></i>
+                    <span>FREE</span>
+                </div>
+                <div class="promo-right">
+                    <h3>Miễn Phí Vận Chuyển</h3>
+                    <p>Toàn quốc cho mọi đơn hàng Laptop AI M3.</p>
+                    <div class="btn-copy">Mã: FREESHIP</div>
+                </div>
+            </div>
+
+            <div class="promo-card" onclick="copyCode('APPLEEDU')">
+                <div class="promo-left">
+                    <h2>1M</h2>
+                    <span>GIẢM</span>
+                </div>
+                <div class="promo-right">
+                    <h3>Apple Education</h3>
+                    <p>Ưu đãi riêng cho HS-SV mua iPad Air M2.</p>
+                    <div class="btn-copy">Mã: APPLEEDU</div>
+                </div>
+            </div>
+
+            <div class="promo-card" onclick="copyCode('SCREEN300')">
+                <div class="promo-left">
+                    <h2>300K</h2>
+                    <span>GIẢM</span>
+                </div>
+                <div class="promo-right">
+                    <h3>Voucher Màn Hình</h3>
+                    <p>Giảm cho các dòng màn hình gaming 144Hz trở lên.</p>
+                    <div class="btn-copy">Mã: SCREEN300</div>
+                </div>
+            </div>
+
+            <div class="promo-card" onclick="copyCode('GEAR15')">
+                <div class="promo-left">
+                    <h2>15%</h2>
+                    <span>GIẢM</span>
+                </div>
+                <div class="promo-right">
+                    <h3>Voucher Chuột/Phím</h3>
+                    <p>Giảm ngay 15% khi mua combo phím chuột cơ.</p>
+                    <div class="btn-copy">Mã: GEAR15</div>
+                </div>
+            </div>
+
+            <div class="promo-card" onclick="copyCode('UPGRADE')">
+                <div class="promo-left">
+                    <h2>200K</h2>
+                    <span>GIẢM</span>
+                </div>
+                <div class="promo-right">
+                    <h3>Nâng Cấp Bộ Nhớ</h3>
+                    <p>Áp dụng khi mua thêm RAM hoặc SSD kèm máy.</p>
+                    <div class="btn-copy">Mã: UPGRADE</div>
+                </div>
+            </div>
+
+            <div class="promo-card" onclick="copyCode('VIPLUAN')">
+                <div class="promo-left" style="background: #f1c40f; color: #000;">
+                    <h2>V.I.P</h2>
+                    <span>SPECIAL</span>
+                </div>
+                <div class="promo-right">
+                    <h3>Đặc quyền Luanduiga</h3>
+                    <p>Mã giảm giá bí mật dành cho khách hàng thân thiết.</p>
+                    <div class="btn-copy">Mã: VIPLUAN</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function copyCode(code) {
+            navigator.clipboard.writeText(code);
+            // Sử dụng cái Custom Alert mà mình đã làm cho Luân ở bài trước nhé!
+            if (typeof showAlert === "function") {
+                showAlert('Đã sao chép mã: ' + code + '. Hãy dán vào giỏ hàng nhé!');
+            } else {
+                alert('Đã sao chép mã: ' + code);
+            }
+        }
+    </script>
+</body>
+
+</html>
+
+

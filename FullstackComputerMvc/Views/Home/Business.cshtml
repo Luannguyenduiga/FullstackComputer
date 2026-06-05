@@ -1,0 +1,446 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu - Fullstack Computer</title>
+    <link rel="stylesheet" href="/assets/css/grid.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/nav.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #f9fbff;
+        }
+
+        .b2b-hero {
+            background: linear-gradient(135deg, #1a2a6c, #2a5298);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .coop-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin-top: -50px;
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .benefit-item i {
+            font-size: 1.5rem;
+            color: #b21f1f;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #1a2a6c;
+            outline: none;
+            box-shadow: 0 0 8px rgba(26, 42, 108, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: #b21f1f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #1a2a6c;
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            color: #1a2a6c;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background: #b21f1f;
+            margin-top: 10px;
+        }
+
+        /* 1. Nền mờ bao phủ toàn màn hình */
+        .modal-alert {
+            display: none;
+            /* Mặc định ẩn, sẽ hiện 'flex' bằng JS */
+            position: fixed;
+            z-index: 99999;
+            /* Luôn nằm trên cùng */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.7);
+            /* Màu xanh đen mờ */
+            backdrop-filter: blur(8px);
+            /* Hiệu ứng mờ nền chuẩn iOS */
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        /* 2. Khung nội dung chính */
+        .modal-content {
+            background: #ffffff;
+            width: 400px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: modalScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @@keyframes modalScale {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* 3. Phần Header chứa Icon */
+        .modal-header {
+            background: linear-gradient(135deg, #1a2a6c, #2a5298);
+            padding: 40px 0;
+            text-align: center;
+            color: #00d2ff;
+            /* Màu xanh neon sáng */
+        }
+
+        .modal-header i {
+            font-size: 5rem;
+            filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.6));
+            animation: checkBounce 0.6s delay 0.2s ease-in-out;
+        }
+
+        @@keyframes checkBounce {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* 4. Thân thông báo */
+        .modal-body {
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .modal-body h3 {
+            margin: 0 0 10px;
+            font-size: 1.8rem;
+            color: #1a2a6c;
+            font-weight: 700;
+        }
+
+        .modal-body p {
+            margin: 0;
+            color: #636e72;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* 5. Nút bấm xác nhận */
+        .modal-footer {
+            padding: 0 30px 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #b21f1f, #ff4757);
+            color: white;
+            border: none;
+            padding: 14px 50px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(178, 31, 31, 0.2);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-confirm:hover {
+            background: #1a2a6c;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(26, 42, 108, 0.3);
+        }
+
+        .btn-confirm:active {
+            transform: translateY(-1px);
+        }
+    </style>
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="container1">
+        <div class="nav">
+            <ul>
+                <li><a href="/Home/AboutUs"><i class="fa-regular fa-building"></i>Về Chúng Tôi</a></li>
+                <li><a href="/Home/Business"><i class="fa-solid fa-briefcase"></i> Dành cho doanh nghiệp</a></li>
+                <li><a href="#"><i class="fa-solid fa-graduation-cap"></i> Apple education</a></li>
+                <li><a href="#"><i class="fa-solid fa-phone"></i> Hotline</a></li>
+                <li><a href="#"><i class="fa-solid fa-rss"></i> tin công nghệ</a></li>
+                <li><a href="#"><i class="fa-solid fa-desktop"></i> xây dựng cấu hình</a></li>
+                <li><a href="#"><i class="fa-solid fa-gift"></i> khuyến mãi</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header-nav">
+        <div class="row align-center">
+            <div class="col-3 ?">
+                <button class="btn-category"><i class="fa-solid fa-bars"></i> Danh mục sản phẩm</button>
+            </div>
+
+            <div class="search-container">
+                <input type="text" placeholder="Bạn muốn mua gì hôm nay...">
+                <div class="search-keywords">
+                    <a href="#">IPhone 17</a>
+                    <a href="#">MacBook Air M4</a>
+                    <a href="#">Laptop</a>
+                    <a href="#">Laptop RTX 50 series</a>
+                    <a href="#">Màn Hình</a>
+                    <a href="#">VGA</a>
+                    <a href="#">Build PC</a>
+                </div>
+            </div>
+
+            <div class="col-3 flex-end">
+                <div class="user-info-header">
+                    <img class="avt-header"
+                        src="https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-1/513826810_1412559273230131_6427666480297972674_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=106&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeHGN7ybpgLnQyg-KPinyHu7qUxuDsymr06pTG4OzKavTmNbt3JbOe6IwJ3LvHdRTlQGQQIVwnKa5AKw2ajPUiOG&_nc_ohc=sgXqvYjlzQYQ7kNvwFGlxEy&_nc_oc=AdmLIS6O355erxwZ9brCPqbO8drzh6FIreG1UcnBJGb_i_0XS_mixgCnZLfbPyDWDGU&_nc_zt=24&_nc_ht=scontent.fsgn5-10.fna&_nc_gid=p8YYj-xdohxl06HocD_B6Q&_nc_ss=8&oh=00_Afzm1NtQpnyk2YLm87eYMommV_N7ZR_NPWA-YLiRuLE-xQ&oe=69B8B936"
+                        alt="">
+                    <div class="avatar"></div>
+                    <div class="user-text">
+                        <p class="small-text">Xin chào </p>
+                        <a class="small-text" href="/Home/AdminPage" target="_blank">Luân Nguyễn</a>
+                        <!--Target="_blank" là mở tab mới-->
+                    </div>
+                    <a href="#" class="cart-wrapper">
+                        <div class="cart-icon-container">
+                            <i class="fa-solid fa-bell icon-header"></i>
+                            <span class="cart-badge">9+</span>
+                        </div>
+                    </a>
+                    <a href="/Home/Shopping" class="cart-wrapper">
+                        <div class="cart-icon-container">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="cart-badge" id="shopping-cart">0</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="b2b-hero">
+        <div class="container">
+            <h1>GIẢI PHÁP CÔNG NGHỆ CHO DOANH NGHIỆP</h1>
+            <p>Đồng hành cùng Fullstack Computer - Nâng tầm hiệu suất, bứt phá tương lai.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="coop-container">
+            <div class="row">
+                <div class="col-5">
+                    <h2 class="section-title">Tại sao chọn chúng tôi?</h2>
+                    <div class="benefit-item">
+                        <i class="fa-solid fa-percent"></i>
+                        <div>
+                            <h4>Chính sách chiết khấu cao</h4>
+                            <p>Mức giá ưu đãi đặc biệt dành riêng cho khách hàng doanh nghiệp và đối tác chiến lược.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fa-solid fa-headset"></i>
+                        <div>
+                            <h4>Hỗ trợ kỹ thuật 24/7</h4>
+                            <p>Đội ngũ kỹ thuật viên trình độ cao luôn sẵn sàng xử lý sự cố tận nơi trong vòng 2h.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <div>
+                            <h4>Công nợ linh hoạt</h4>
+                            <p>Hỗ trợ thanh toán trả chậm, công nợ theo tháng cho các doanh nghiệp uy tín.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fa-solid fa-laptop-code"></i>
+                        <div>
+                            <h4>Cung cấp giải pháp AI</h4>
+                            <p>Tư vấn và lắp đặt hệ thống máy chủ, workstation tối ưu cho xử lý dữ liệu và trí tuệ nhân
+                                tạo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-7">
+                    <div style="padding-left: 30px; border-left: 1px solid #eee;">
+                        <h2 class="section-title">Đăng ký thông tin</h2>
+                        <form id="businessForm">
+                            <div class="row">
+                                <div class="col-6 form-group">
+                                    <label>Tên doanh nghiệp *</label>
+                                    <input type="text" class="form-control" placeholder="CÔNG TY CP FULLSTACK..."
+                                        required>
+                                </div>
+                                <div class="col-6 form-group">
+                                    <label>Mã số thuế</label>
+                                    <input type="text" class="form-control" placeholder="012345xxx">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6 form-group">
+                                    <label>Người liên hệ *</label>
+                                    <input type="text" class="form-control" placeholder="Họ và tên" required>
+                                </div>
+                                <div class="col-6 form-group">
+                                    <label>Số điện thoại *</label>
+                                    <input type="tel" class="form-control" placeholder="037xxxxxxx" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email công việc *</label>
+                                <input type="email" class="form-control" placeholder="info@company.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nhu cầu hợp tác</label>
+                                <select class="form-control">
+                                    <option>Mua sắm thiết bị số lượng lớn</option>
+                                    <option>Bảo trì hệ thống mạng/phần cứng</option>
+                                    <option>Giải pháp hạ tầng AI/Server</option>
+                                    <option>Khác</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Lời nhắn / Ghi chú</label>
+                                <textarea class="form-control" rows="4"
+                                    placeholder="Ví dụ: Cần báo giá 50 máy Laptop văn phòng..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-submit">GỬI YÊU CẦU HỢP TÁC</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="customAlert" class="modal-alert">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="modal-body">
+                <h3>Gửi thành công!</h3>
+                <p id="alertMsg">Cảm ơn doanh nghiệp đã tin tưởng Fullstack Computer.</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeAlert()" class="btn-confirm">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+    </footer>
+
+    <script>
+        const alertModal = document.getElementById('customAlert');
+
+        function openAlert(msg) {
+            document.getElementById('alertMsg').innerText = msg;
+            alertModal.style.display = 'flex';
+        }
+
+        function closeAlert() {
+            alertModal.style.display = 'none';
+        }
+
+        document.getElementById('businessForm').onsubmit = function (e) {
+            e.preventDefault();
+            // Gọi Custom Alert thay vì alert mặc định
+            openAlert('Yêu cầu đã được gửi! Nguyễn Thành Luân sẽ liên hệ lại trong vòng 24h.');
+        };
+
+        // Đóng modal khi click ra ngoài vùng trắng
+        window.onclick = function (event) {
+            if (event.target == alertModal) {
+                closeAlert();
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
+

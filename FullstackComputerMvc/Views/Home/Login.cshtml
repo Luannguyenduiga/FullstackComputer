@@ -1,0 +1,426 @@
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <title>Đăng nhập - FullStackComputer</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --primary-color: #07aa40;
+        --secondary-color: #107430;
+        --error-bg: #fff1f0;
+        --error-text: #f5222d;
+        --success-bg: #f6ffed;
+        --success-text: #52c41a;
+      }
+
+      body {
+        font-family: "Times New Roman", serif;
+        margin: 0;
+        padding: 0;
+        background-image: url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=2070");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 0, 0, 0.8) 0%,
+          rgba(0, 0, 0, 0.4) 100%
+        );
+        z-index: -1;
+      }
+
+      .container-about {
+        margin: 0 auto;
+        width: 1200px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .content {
+        width: 550px;
+        color: #fff;
+        animation: fadeInUp 0.8s ease;
+      }
+      .content h1 {
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        line-height: 1.2;
+      }
+      .content p {
+        font-size: 22px;
+        opacity: 0.9;
+        line-height: 1.6;
+      }
+
+      .FORM_DANGNHAP {
+        width: 400px;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        animation: fadeInRight 0.8s ease;
+      }
+
+      /* Alert Box chuẩn UI */
+      #alert-box {
+        display: none;
+        padding: 12px 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        border: 1px solid;
+        animation: shake 0.4s ease;
+      }
+
+      .inputBox {
+        margin-bottom: 20px;
+        position: relative;
+      }
+      .inputBox label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+      }
+
+      .inputBox input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #eee;
+        border-radius: 12px;
+        font-size: 15px;
+        transition: 0.3s;
+        box-sizing: border-box;
+        outline: none;
+      }
+      .inputBox input:focus {
+        border-color: var(--primary-color);
+        background: #fff;
+        box-shadow: 0 0 0 4px rgba(7, 170, 64, 0.1);
+      }
+
+      /* Social Login Buttons */
+      .social-login {
+        display: flex;
+        gap: 15px;
+        margin: 20px 0;
+      }
+      .social-btn {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background: #fff;
+        cursor: pointer;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-weight: 500;
+        font-size: 14px;
+      }
+      .social-btn:hover {
+        background: #f8f8f8;
+        transform: translateY(-2px);
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        color: #999;
+        margin: 20px 0;
+        font-size: 13px;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+      }
+      .divider span {
+        padding: 0 15px;
+        text-transform: uppercase;
+      }
+
+      .Loginbtn button {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(
+          45deg,
+          var(--secondary-color),
+          var(--primary-color)
+        );
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(7, 170, 64, 0.3);
+      }
+      .Loginbtn button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(7, 170, 64, 0.4);
+        opacity: 0.9;
+      }
+      .Loginbtn button:disabled {
+        background: #ccc;
+        box-shadow: none;
+        cursor: not-allowed;
+      }
+
+      .remember-login {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 15px;
+        font-size: 14px;
+        color: #666;
+      }
+      .forgot-password {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .forgot-password:hover {
+        text-decoration: underline;
+      }
+
+      /* Animations */
+      @@keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @@keyframes fadeInRight {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @@keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        75% {
+          transform: translateX(5px);
+        }
+      }
+    </style>
+      <link rel="stylesheet" href="/assets/css/responsive.css">
+</head>
+  <body>
+    <div class="container-about">
+      <div class="content">
+        <h1>Bứt phá công nghệ cùng FullStackComputer</h1>
+        <p>Đăng nhập để bắt đầu hành trình của bạn.</p>
+      </div>
+
+      <div class="FORM_DANGNHAP">
+        <form id="loginForm">
+          <h2
+            style="
+              margin: 0 0 10px 0;
+              text-align: center;
+              font-size: 28px;
+              color: #222;
+            "
+          >
+            Chào quay lại!
+          </h2>
+          <p
+            style="
+              text-align: center;
+              color: #666;
+              margin-bottom: 30px;
+              font-size: 14px;
+            "
+          >
+            Chưa có tài khoản?
+            <a
+              href="./register.html"
+              style="
+                color: var(--primary-color);
+                text-decoration: none;
+                font-weight: 700;
+              "
+              >Đăng ký ngay</a
+            >
+          </p>
+
+          <div id="alert-box"></div>
+
+          <div class="social-login">
+            <button type="button" class="social-btn">
+              <i
+                class="bx bxl-google"
+                style="color: #db4437; font-size: 20px"
+              ></i>
+              Google
+            </button>
+            <button type="button" class="social-btn">
+              <i
+                class="bx bxl-facebook-circle"
+                style="color: #4267b2; font-size: 20px"
+              ></i>
+              Facebook
+            </button>
+          </div>
+
+          <div class="divider"><span>Hoặc dùng tài khoản</span></div>
+
+          <section class="dangnhap">
+            <div class="inputBox">
+              <label><i class="bx bxs-user"></i> Tên đăng nhập</label>
+              <input type="text" id="username" required />
+            </div>
+            <div class="inputBox">
+              <label><i class="bx bxs-lock-alt"></i> Mật khẩu</label>
+              <input type="password" id="password" required />
+            </div>
+          </section>
+
+          <div class="Loginbtn">
+            <button type="submit" id="btn-login">Đăng nhập</button>
+          </div>
+
+          <div class="remember-login">
+            <input type="checkbox" id="rem" />
+            <label for="rem">Duy trì đăng nhập</label>
+          </div>
+        </form>
+        <a href="#" class="forgot-password">Bạn quên mật khẩu?</a>
+      </div>
+    </div>
+    <script src="/assets/js/controllers/userController.js"></script>
+    <script src="/assets/js/models/Auth.js"></script>
+    <script>
+window.getApiBase = window.getApiBase || function() {
+    return (window.location.origin.includes('127.0.0.1') || window.location.origin.includes('localhost:5500')) ? 'http://localhost:3000' : '';
+};
+
+      const API = `${window.getApiBase()}`;
+      const loginForm = document.getElementById("loginForm");
+      const alertBox = document.getElementById("alert-box");
+      const btn = document.getElementById("btn-login");
+
+      function showAlert(msg, type = "error") {
+        alertBox.innerHTML =
+          type === "success"
+            ? `<i class='bx bxs-check-circle'></i> ${msg}`
+            : `<i class='bx bxs-error-circle'></i> ${msg}`;
+
+        alertBox.style.display = "flex";
+        alertBox.style.alignItems = "center";
+        alertBox.style.gap = "10px";
+
+        if (type === "success") {
+          alertBox.style.backgroundColor = "#f6ffed";
+          alertBox.style.color = "#52c41a";
+          alertBox.style.borderColor = "#b7eb8f";
+        } else {
+          alertBox.style.backgroundColor = "#fff1f0";
+          alertBox.style.color = "#f5222d";
+          alertBox.style.borderColor = "#ffa39e";
+        }
+      }
+
+      loginForm.onsubmit = async (e) => {
+        e.preventDefault();
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+
+        // Hiệu ứng loading
+        btn.disabled = true;
+        btn.innerHTML = `<i class='bx bx-loader-alt bx-spin'></i> Đang xác thực...`;
+        alertBox.style.display = "none";
+
+        try {
+          const res = await fetch(`${API}/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+          });
+
+          const data = await res.json();
+
+          if (res.ok) {
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+            showAlert("Xác thực thành công! Đang chuyển hướng...", "success");
+
+            setTimeout(() => {
+              const role = data.user.role;
+              if (role === "admin")
+                window.location.href = "/Home/AdminPage";
+              else if (role === "staff")
+                window.location.href = "/Home/Post";
+              else window.location.href = "/Home/Index";
+            }, 1200);
+          } else {
+            showAlert(
+              data.message || "Thông tin đăng nhập không chính xác",
+              "error",
+            );
+            btn.disabled = false;
+            btn.innerHTML = "Đăng nhập hệ thống";
+          }
+        } catch (err) {
+          showAlert(
+            "Máy chủ hiện không phản hồi. Vui lòng thử lại sau!",
+            "error",
+          );
+          btn.disabled = false;
+          btn.innerHTML = "Đăng nhập hệ thống";
+        }
+      };
+    </script>
+  </body>
+</html>

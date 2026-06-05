@@ -1,0 +1,252 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FullStackComputer</title>
+    <link rel="stylesheet" href="/assets/css/grid.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/nav.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+</head>
+
+<body class="buildpc">
+
+    <!-- TOP NAV -->
+    <div class="header-nav">
+        <div class="row align-center">
+            <div class="col-3 ?">
+                <button class="btn-category"><i class="fa-solid fa-bars"></i> Danh mục sản phẩm</button>
+            </div>
+
+            <div class="search-container">
+                <input type="text" placeholder="Bạn muốn mua gì hôm nay...">
+                <div class="search-keywords">
+                    <a href="#">IPhone 17</a>
+                    <a href="#">MacBook Air M4</a>
+                    <a href="#">Laptop</a>
+                    <a href="#">Laptop RTX 50 series</a>
+                    <a href="#">Màn Hình</a>
+                    <a href="#">VGA</a>
+                    <a href="#">Build PC</a>
+                </div>
+            </div>
+
+            <div class="col-3 flex-end">
+                <div class="user-info-header">
+                    <img class="avt-header"
+                        src="https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-1/513826810_1412559273230131_6427666480297972674_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=106&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeHGN7ybpgLnQyg-KPinyHu7qUxuDsymr06pTG4OzKavTmNbt3JbOe6IwJ3LvHdRTlQGQQIVwnKa5AKw2ajPUiOG&_nc_ohc=sgXqvYjlzQYQ7kNvwFGlxEy&_nc_oc=AdmLIS6O355erxwZ9brCPqbO8drzh6FIreG1UcnBJGb_i_0XS_mixgCnZLfbPyDWDGU&_nc_zt=24&_nc_ht=scontent.fsgn5-10.fna&_nc_gid=p8YYj-xdohxl06HocD_B6Q&_nc_ss=8&oh=00_Afzm1NtQpnyk2YLm87eYMommV_N7ZR_NPWA-YLiRuLE-xQ&oe=69B8B936"
+                        alt="">
+                    <div class="avatar"></div>
+                    <div class="user-text">
+                        <p class="small-text">Xin chào </p>
+                        <a class="small-text" href="/Home/AdminPage" target="_blank" id="admin-page">Luân
+                            Nguyễn</a>
+                        <!--Target="_blank" là mở tab mới-->
+                    </div>
+                    <div class="notice-wrapper">
+                        <a href="#" class="cart-wrapper">
+                            <div class="cart-icon-container">
+                                <i class="fa-solid fa-bell icon-header"></i>
+                                <span class="cart-badge" id="notice-count"></span>
+                            </div>
+                        </a>
+
+                        <div class="notice-dropdown">
+                            <div class="notice-header">
+                                <h3>THÔNG BÁO</h3>
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+
+                            <div class="notice-item">
+                                <div class="notice-info">
+                                    <strong>SIÊU ƯU ĐÃI THÁNG 4 🔥</strong>
+                                    <p>Tháng 4 sắp có sự kiện còn nóng hơn cả nhiệt độ mùa hè...</p>
+                                    <span class="notice-time">4/4 - 15:30</span>
+                                </div>
+                            </div>
+                            <div class="notice-item">
+                                <div class="notice-info">
+                                    <strong>30/4 Giải phóng miền Nam 🔥</strong>
+                                    <p>Đại lễ với hàng ngàn ưu đãi chờ đón bạn tại Fullstack...</p>
+                                    <span class="notice-time">4/4 - 15:30</span>
+                                </div>
+                            </div>
+
+                            <div class="notice-item">
+                                <div class="notice-info">
+                                    <strong>30/4 Giải phóng miền Nam 🔥</strong>
+                                    <p>Đại lễ với hàng ngàn ưu đãi chờ đón bạn tại Fullstack...</p>
+                                    <span class="notice-time">4/4 - 15:30</span>
+                                </div>
+                            </div>
+
+                            <div class="notice-footer">
+                                <a href="#">Xem tất cả thông báo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shopping-container">
+                        <a href="/Home/DetailProduct" class="shopping-wrapper" id="cartDropdown">
+                            <div class="cart-icon-container">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span class="cart-badge"></span>
+                            </div>
+
+                            <div class="cart-dropdown-content">
+                                <div class="cart-empty">
+                                    <img src="/assets/images/banner/cart-shopping.jpg" alt="Giỏ hàng trống">
+                                    <p>Chưa có sản phẩm nào trong giỏ hàng</p>
+                                    <div class="product-shopping"></div>
+                                    <a href="/Home/Product" class="btn-back-to-shop">Tiếp tục mua sắm</a>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="buildpc-wrapper">
+        <div class="content-center">
+            <!-- HERO SECTION -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-icon"><i class="fa-regular fa-hourglass"></i></div>
+                    <h1 class="hero-title">Xây Dựng Cấu Hình PC Theo Cá Nhân</h1>
+                    <p class="hero-subtitle">Chọn linh kiện · Kiểm tra tương thích · Mua hàng dễ dàng</p>
+                </div>
+            </div>
+
+            <!-- PRESETS -->
+            <div class="presets-section">
+                <div class="presets-title">🚀 Chọn cấu hình theo nhu cầu</div>
+                <div class="presets-grid">
+                    <div class="preset-card" onclick="applyPreset('gaming', this)">
+                        <div class="preset-icon">🎮</div>
+                        <div class="preset-name">Gaming</div>
+                        <div class="preset-price">~45 triệu</div>
+                    </div>
+                    <div class="preset-card" onclick="applyPreset('esport', this)">
+                        <div class="preset-icon">⚡</div>
+                        <div class="preset-name">Esport</div>
+                        <div class="preset-price">~22 triệu</div>
+                    </div>
+                    <div class="preset-card" onclick="applyPreset('creative', this)">
+                        <div class="preset-icon">🎨</div>
+                        <div class="preset-name">Render</div>
+                        <div class="preset-price">~38 triệu</div>
+                    </div>
+                    <div class="preset-card" onclick="applyPreset('office', this)">
+                        <div class="preset-icon">💼</div>
+                        <div class="preset-name">Văn phòng</div>
+                        <div class="preset-price">~12 triệu</div>
+                    </div>
+                    <div class="preset-card" onclick="applyPreset('budget', this)">
+                        <div class="preset-icon">💰</div>
+                        <div class="preset-name">Phổ thông</div>
+                        <div class="preset-price">~7 triệu</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAIN LAYOUT -->
+            <div class="main-layout">
+                <!-- LEFT - PARTS -->
+                <div class="parts-panel">
+                    <div class="panel-header">
+                        <span class="panel-title">📦 Linh kiện</span>
+                        <div class="parts-badge"><span id="parts-count">0</span>/10</div>
+                    </div>
+                    <div id="parts-list"></div>
+                </div>
+
+                <!-- RIGHT - SIDEBAR -->
+                <div class="sidebar">
+                    <!-- SUMMARY -->
+                    <div class="card">
+                        <div class="card-header">💰 Tóm tắt</div>
+                        <div id="summary-rows"></div>
+                        <div class="summary-total">
+                            <span class="summary-total-label">Tổng:</span>
+                            <span class="summary-total-price" id="total-price">0đ</span>
+                        </div>
+                        <button class="btn-order" id="btn-order" disabled onclick="orderNow()">🛒 Đặt hàng</button>
+                    </div>
+
+                    <!-- INFO -->
+                    <div class="card">
+                        <div class="card-header">✅ Tương thích</div>
+                        <div id="compat-info" style="font-size: 13px; color: #6b7280; line-height: 1.8;">
+                            Chọn linh kiện để kiểm tra
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModalIfOverlay(event)">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Chọn linh kiện</h2>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-search">
+                <input type="text" placeholder="🔍 Tìm kiếm..." id="searchInput" oninput="filterProducts()">
+            </div>
+            <div class="modal-products" id="modal-products"></div>
+        </div>
+    </div>
+
+    <!-- Dialog notification maintaince-->
+    <div class="modal-overlay active" id="maintenanceModal">
+        <div class="modal maintenance-card">
+            <div class="modal-header" style="justify-content: center; border-bottom: none;">
+                <div class="maintenance-icon">404</div>
+            </div>
+            <div class="modal-products" style="text-align: center; padding: 0 40px 40px 40px;">
+                <h2 style="color: #1d1d1f; margin-bottom: 15px;">Hệ Thống Đang Bảo Trì</h2>
+                <p style="color: #6b7280; line-height: 1.6; margin-bottom: 25px;">
+                    Chào <strong>bạn</strong>, hệ thống Build PC đang được nâng cấp <br>
+                    Vui lòng quay lại sau vài phút!
+                </p>
+                <button class="btn-order" onclick="closeMaintenance()" style="margin-top: 0;">Đã hiểu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p class="footer-text">© 2026 FullStack Computer - Xây Dựng PC Thành Công 🎉</p>
+    </div>
+
+    <script src="/assets/js/script.js"></script>
+    <script>
+        function closeMaintenance() {
+            const modal = document.getElementById('maintenanceModal');
+            modal.classList.remove('active');
+            // Có thể dùng style.display = 'none' nếu Luân không dùng class active
+            modal.style.display = 'none';
+            window.close(); // đóng tab
+        }
+
+        // Nếu muốn tự động hiện khi vừa vào trang:
+        window.onload = function () {
+            document.getElementById('maintenanceModal').style.display = 'flex';
+        };
+    </script>
+</body>
+
+</html>
+
+

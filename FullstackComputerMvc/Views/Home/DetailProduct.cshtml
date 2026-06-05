@@ -1,0 +1,223 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/grid.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/detail-product.css">
+    <link rel="stylesheet" href="/assets/css/nav.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="header-nav">
+        <div class="row align-center">
+            <div class="col-3 ?">
+                <button class="btn-category"><i class="fa-solid fa-bars"></i> Danh mục sản phẩm</button>
+            </div>
+
+            <div class="search-container">
+                <input type="text" placeholder="Bạn muốn mua gì hôm nay...">
+                <div class="search-keywords">
+                    <a href="#">IPhone 17</a>
+                    <a href="#">MacBook Air M4</a>
+                    <a href="#">Laptop</a>
+                    <a href="#">Laptop RTX 50 series</a>
+                    <a href="#">Màn Hình</a>
+                    <a href="#">VGA</a>
+                    <a href="#">Build PC</a>
+                </div>
+            </div>
+
+            <div class="col-3 flex-end">
+                <div class="user-info-header">
+                    <img class="avt-header"
+                        src="https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-1/513826810_1412559273230131_6427666480297972674_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=106&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeHGN7ybpgLnQyg-KPinyHu7qUxuDsymr06pTG4OzKavTmNbt3JbOe6IwJ3LvHdRTlQGQQIVwnKa5AKw2ajPUiOG&_nc_ohc=sgXqvYjlzQYQ7kNvwFGlxEy&_nc_oc=AdmLIS6O355erxwZ9brCPqbO8drzh6FIreG1UcnBJGb_i_0XS_mixgCnZLfbPyDWDGU&_nc_zt=24&_nc_ht=scontent.fsgn5-10.fna&_nc_gid=p8YYj-xdohxl06HocD_B6Q&_nc_ss=8&oh=00_Afzm1NtQpnyk2YLm87eYMommV_N7ZR_NPWA-YLiRuLE-xQ&oe=69B8B936"
+                        alt="">
+                    <div class="avatar"></div>
+                    <div class="user-text">
+                        <p class="small-text">Xin chào </p>
+                        <a class="small-text" href="/Home/Login" target="_blank">Luân Nguyễn</a>
+                        <!--Target="_blank" là mở tab mới-->
+                    </div>
+                    <div class="notice-wrapper">
+                        <a href="#" class="cart-wrapper">
+                            <div class="cart-icon-container">
+                                <i class="fa-solid fa-bell icon-header"></i>
+                                <span class="cart-badge" id="notice-count"></span>
+                            </div>
+                        </a>
+
+                        <div class="notice-dropdown">
+                            <div class="notice-header">
+                                <h3>THÔNG BÁO</h3>
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+
+                            <div class="notice-item">
+                                <div class="notice-info">
+                                    <strong>SIÊU ƯU ĐÃI THÁNG 4 🔥</strong>
+                                    <p>Tháng 4 sắp có sự kiện còn nóng hơn cả nhiệt độ mùa hè...</p>
+                                    <span class="notice-time">4/4 - 15:30</span>
+                                </div>
+                            </div>
+                            <div class="notice-item">
+                                <div class="notice-info">
+                                    <strong>30/4 Giải phóng miền Nam 🔥</strong>
+                                    <p>Đại lễ với hàng ngàn ưu đãi chờ đón bạn tại Fullstack...</p>
+                                    <span class="notice-time">4/4 - 15:30</span>
+                                </div>
+                            </div>
+
+                            <div class="notice-item">
+                                <div class="notice-info">
+                                    <strong>30/4 Giải phóng miền Nam 🔥</strong>
+                                    <p>Đại lễ với hàng ngàn ưu đãi chờ đón bạn tại Fullstack...</p>
+                                    <span class="notice-time">4/4 - 15:30</span>
+                                </div>
+                            </div>
+
+                            <div class="notice-footer">
+                                <a href="#">Xem tất cả thông báo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shopping-container">
+                        <a href="/Home/DetailProduct" class="shopping-wrapper" id="cartDropdown">
+                            <div class="cart-icon-container">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span class="cart-badge"></span>
+                            </div>
+
+                            <div class="cart-dropdown-content">
+                                <div class="cart-empty">
+                                    <img src="/assets/images/banner/cart-shopping.jpg" alt="Giỏ hàng trống">
+                                    <p>Chưa có sản phẩm nào trong giỏ hàng</p>
+                                    <div class="product-shopping"></div>
+                                    <a href="/Home/Shopping" class="your-product">Xem tất cả sản phẩm</a>
+                                    <a href="/Home/Product" class="btn-back-to-shop">Tiếp tục mua sắm</a>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="product-detail">
+            <div class="product inform"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-col">
+                    <h4>Hỗ trợ Khách hàng</h4>
+                    <ul>
+                        <li><a href="#">Thẻ ưu đãi</a></li>
+                        <li><a href="#">Hướng dẫn mua online</a></li>
+                        <li><a href="#">Chính sách trả góp</a></li>
+                        <li><a href="#">Dịch vụ sửa chữa</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Chính sách mua hàng</h4>
+                    <ul>
+                        <li><a href="#">Điều kiện giao dịch chung</a></li>
+                        <li><a href="#">Chính sách bảo hành</a></li>
+                        <li><a href="#">Chính sách đổi trả</a></li>
+                        <li><a href="#">Giao hàng và lắp đặt</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Thông tin FullstackComputer</h4>
+                    <ul>
+                        <li><a href="#">Giới thiệu FullstackComputer</a></li>
+                        <li><a href="#">Hệ thống cửa hàng</a></li>
+                        <li><a href="#">Trung tâm bảo hành</a></li>
+                        <li><a href="#">Tuyển dụng</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Cộng đồng FullstackComputer</h4>
+                    <p class="phone-number">Gọi mua hàng: <strong>1800 3667</strong></p>
+                    <div class="social-list">
+                        <p><i class="fa-brands fa-facebook" style="color: #1877f2;"></i> Facebook FullstackComputer</p>
+                        <p><i class="fa-brands fa-youtube" style="color: #ff0000;"></i> FullstackComputer Media</p>
+                        <p><i class="fa-solid fa-users" style="color: #0084ff;"></i> FullstackComputer Group</p>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Email liên hệ</h4>
+                    <p>Hỗ trợ khách hàng:<br><a href="mailto:cskh@phongvu.vn"
+                            class="blue-link">cskh@fullstackcomputer.vn</a></p>
+                    <p>Liên hệ báo giá:<br><a href="mailto:baogia@phongvu.vn"
+                            class="blue-link">baogia@fullstackcomputer.vn</a></p>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <div class="footer-payment">
+                <div class="payment-section">
+                    <h4>Phương thức thanh toán</h4>
+                    <div class="payment-icons">
+                        <button class="pay-item"><i class="fa-solid fa-qrcode"></i><span>QR Code</span></button>
+                        <button class="pay-item"><i class="fa-solid fa-money-bill-1-wave"></i><span>Tiền
+                                mặt</span></button>
+                        <button class="pay-item"><i class="fa-solid fa-credit-card"></i><span>Trả góp</span></button>
+                        <button class="pay-item"><i class="fa-solid fa-building-columns"></i><span>Internet
+                                Banking</span></button>
+                    </div>
+                </div>
+                <div class="bank-section">
+                    <h4>Danh sách ngân hàng thanh toán online</h4>
+                    <div class="bank-placeholder">
+                        <img src="https://shopfront-cdn.tekoapis.com/static/vnpay_banks.png" alt="Banks">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container bottom-grid">
+                <div class="info-left">
+                    <p><strong>CÔNG TY CỔ PHẦN THƯƠNG MẠI - DỊCH VỤ FULLSTACKCOMPUTER </strong></p>
+                    <p>© 1997 - 2024 Công Ty Cổ Phần Thương Mại - Dịch Vụ FullStackComputer</p>
+                    <p>Giấy chứng nhận đăng ký doanh nghiệp: 0123456789 do Sở KH-ĐT TP.HCM cấp lần đầu ngày 36 tháng 02
+                        năm 2018</p>
+                </div>
+                <div class="info-right">
+                    <p><strong>Địa chỉ trụ sở chính:</strong> Tầng 18, Lê Văn Sĩ, Q.Tân Bình, TP. HCM</p>
+                    <p><strong>Văn phòng miền Bắc:</strong> Tầng 36, Số 1 Thái Hà, Đống Đa, Hà Nội</p>
+                </div>
+                <!-- <div class="certification">
+                    <img src="https://dangkywebvoibocongthuong.com/wp-content/uploads/2021/11/logo-da-thong-bao-bo-cong-thuong.png" alt="Đã thông báo">
+                    <img src="https://images.dmca.com/Badges/dmca-badge-w150-2x1-02.png?ID=73ee7811-7aa7-44d0-bb06-6c0df0da41d8" alt="DMCA">
+                </div> -->
+            </div>
+        </div>
+    </footer>
+<script src="/assets/js/views/productView.js"></script>
+<script src="/assets/js/script.js"></script>
+</body>
+
+</html>
+
+
+
