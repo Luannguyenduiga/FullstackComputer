@@ -4,7 +4,6 @@ import { pipeline } from "stream";
 import { promisify } from "util";
 import { fileURLToPath } from "url";
 import { sql } from "../configDB.js";
-import { error } from "console";
 import jwt from "jsonwebtoken"; // Thêm import jsonwebtoken
 import bcrypt from "bcrypt"; // Thêm import bcrypt
 
@@ -127,6 +126,41 @@ export default async function productController(fastify, options) {
     }
   });
 
+  // DELETE product
+  fastify.delete("/api/product/:id", async (req, reply) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return reply.code(400).send({ success: false, error: "ID sản phẩm không hợp lệ" });
+      }
+
+      // Lấy danh sách ảnh trước khi xóa để xóa file vật lý
+      const images = await sql.query`SELECT image_url FROM HINHANH_SP WHERE product_id = ${id}`;
+
+      // 1. Xóa sản phẩm khỏi giỏ hàng (nếu có) để tránh lỗi khóa ngoại
+      await sql.query`DELETE FROM GIOHANG WHERE product_id = ${id}`;
+      
+      // 2. Xóa các hình ảnh liên kết với sản phẩm
+      await sql.query`DELETE FROM HINHANH_SP WHERE product_id = ${id}`;
+      
+      // 3. Cuối cùng mới xóa sản phẩm ở bảng chính
+      await sql.query`DELETE FROM SANPHAM WHERE product_id = ${id}`;
+
+      // Xóa file ảnh vật lý trên server
+      images.recordset.forEach(img => {
+        if (img.image_url) {
+          const filePath = path.join(IMAGE_ROOT, img.image_url);
+          if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+        }
+      });
+
+      return reply.send({ success: true, message: "Xóa sản phẩm thành công" });
+    } catch (err) {
+      console.error("Lỗi xóa sản phẩm admin:", err);
+      return reply.code(500).send({ success: false, error: "Lỗi server khi xóa sản phẩm", detail: err.message });
+    }
+  });
+
   // POST products
   fastify.post("/products", async (req, reply) => {
     try {
@@ -219,8 +253,8 @@ export default async function productController(fastify, options) {
             WHERE p.product_id = ${id} AND p.status='active'
         `;
       res.send(result.recordset[0]); //The array contains the data rows that the query returns. This is return value begin
-    } catch {
-      req.log.error(error);
+    } catch (err) {
+      console.error(err);
       res.code(500).send({ error: "Lỗi lấy dữ liệu hiển thị" });
     }
   });
@@ -287,15 +321,22 @@ export default async function productController(fastify, options) {
     try {
       // Fastify tự bóc tách ?product_id=5&user_id=3 vào req.query
       const { product_id, user_id } = req.query;
+      const pId = parseInt(product_id);
+      const uId = parseInt(user_id);
 
-      console.log("Đang xóa SP:", product_id, "của User:", user_id);
+      if (isNaN(pId) || isNaN(uId)) {
+        return reply.code(400).send({ success: false, error: "ID không hợp lệ" });
+      }
+
+      console.log("Đang xóa SP:", pId, "của User:", uId);
 
       await sql.query`
             DELETE FROM GIOHANG 
-            WHERE user_id = ${user_id} AND product_id = ${product_id}`;
+            WHERE user_id = ${uId} AND product_id = ${pId}`;
 
       return { success: true, message: "Đã xóa xong" };
     } catch (err) {
+      console.error(err);
       return reply.code(500).send({ error: err.message });
     }
   });
